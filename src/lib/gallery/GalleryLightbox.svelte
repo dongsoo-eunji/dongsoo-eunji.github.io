@@ -21,17 +21,24 @@
 
   const previousIndex = (): number => (selectedIndex - 1 + images.length) % images.length;
   const nextIndex = (): number => (selectedIndex + 1) % images.length;
-  const isPreloadedSlide = (index: number): boolean =>
-    index === selectedIndex || index === previousIndex() || index === nextIndex();
 
   function close(): void {
     onclose();
   }
 
+  function selectImage(index: number): void {
+    const normalizedIndex = (index + images.length) % images.length;
+    onselect(normalizedIndex);
+
+    if (emblaApi?.selectedScrollSnap() !== normalizedIndex) {
+      emblaApi?.scrollTo(normalizedIndex);
+    }
+  }
+
   function handleKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') close();
-    if (event.key === 'ArrowLeft') onselect(previousIndex());
-    if (event.key === 'ArrowRight') onselect(nextIndex());
+    if (event.key === 'ArrowLeft') selectImage(previousIndex());
+    if (event.key === 'ArrowRight') selectImage(nextIndex());
   }
 
   function setEmblaApi(event: CustomEvent<EmblaCarouselType>): void {
@@ -97,24 +104,23 @@
     <div class="gallery-lightbox-track">
       {#each images as image, index (image.id)}
         <div class="gallery-lightbox-slide">
-          {#if isPreloadedSlide(index)}
-            <img
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              loading={index === selectedIndex ? 'eager' : 'lazy'}
-            />
-          {/if}
+          <img
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading={index === selectedIndex ? 'eager' : 'lazy'}
+            draggable="false"
+          />
         </div>
       {/each}
     </div>
   </div>
 
   <div class="gallery-lightbox-controls">
-    <button type="button" aria-label="이전 사진" onclick={() => onselect(previousIndex())}>이전</button>
-    <button type="button" aria-label="다음 사진" onclick={() => onselect(nextIndex())}>다음</button>
+    <button type="button" aria-label="이전 사진" onclick={() => selectImage(previousIndex())}>이전</button>
+    <button type="button" aria-label="다음 사진" onclick={() => selectImage(nextIndex())}>다음</button>
   </div>
 
-  <GalleryThumbnailStrip {images} {selectedIndex} onselect={onselect} />
+  <GalleryThumbnailStrip {images} {selectedIndex} onselect={selectImage} />
 </div>
