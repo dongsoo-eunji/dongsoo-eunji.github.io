@@ -7,6 +7,8 @@
   };
 
   let { images, onopen }: Props = $props();
+  let expanded = $state(false);
+  const visibleImages = $derived(expanded ? images : images.slice(0, 6));
 
   function openImage(event: MouseEvent, index: number): void {
     event.preventDefault();
@@ -18,8 +20,8 @@
   }
 </script>
 
-<div class="wedding-gallery-grid">
-  {#each images.slice(0, 6) as image, index (image.id)}
+<div id="wedding-gallery-grid" class="wedding-gallery-grid">
+  {#each visibleImages as image, index (image.id)}
     <a href={image.src} onclick={(event) => openImage(event, index)}>
       <img
         src={image.thumbnailSrc}
@@ -32,6 +34,14 @@
   {/each}
 </div>
 
-<button class="gallery-all-button" type="button" onclick={(event) => onopen(0, event.currentTarget)}>
-  사진 모두 보기 <span aria-hidden="true">({images.length})</span>
-</button>
+{#if images.length > 6}
+  <button
+    class="gallery-expand-button"
+    type="button"
+    aria-controls="wedding-gallery-grid"
+    aria-expanded={expanded}
+    onclick={() => (expanded = !expanded)}
+  >
+    {expanded ? '접기' : '더보기'} <span aria-hidden="true">({images.length})</span>
+  </button>
+{/if}
