@@ -178,6 +178,7 @@
     <h1 id="wedding-title">이동수 <span>그리고</span> 조은지</h1>
     <p class="date">2026. 10. 04. SUN</p>
     <p class="venue">라도무스 웨딩홀 14:30 라도무스홀</p>
+    <!-- TODO: 식사는 13:30 부터 제공된다고 적어야 함. 그러나 어디에? -->
   </section>
 
   <section class="section intro" aria-labelledby="intro-title">
@@ -208,6 +209,8 @@
     {/if}
   </section>
 
+  <!-- TODO: 뭔가 하나 더 넣고 싶네. 멘트? -->
+
   <section class="section gallery" aria-labelledby="gallery-title">
     <p class="section-label">GALLERY</p>
     <h2 id="gallery-title">우리의 순간</h2>
@@ -237,6 +240,7 @@
       />
       <span>카카오맵에서 크게 보기</span>
     </a>
+    <!-- TODO: 오시는 길에 교통 및 주차 관련 안내 소개 필요. 주차 어려울 수 있음 -->
   </section>
 
   <section class="section contact" aria-labelledby="contact-title">
@@ -286,6 +290,7 @@
     </noscript>
   </section>
 
+  <!-- TODO: 사진 하나 더 넣으면 좋지 않을까? -->
   <footer>
     <p>이동수 · 조은지</p>
     <small>2026년 10월 4일</small>
