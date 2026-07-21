@@ -14,7 +14,7 @@
 
   let { images, selectedIndex, onclose, onselect }: Props = $props();
   let closeButton: HTMLButtonElement;
-  let emblaApi: EmblaCarouselType | undefined;
+  let emblaApi = $state<EmblaCarouselType | undefined>();
   let activeElement: HTMLElement | null = null;
   let originalOverflow = '';
   let originalOverscrollBehavior = '';

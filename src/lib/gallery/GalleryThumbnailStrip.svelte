@@ -19,13 +19,15 @@
 
   $effect(() => {
     const thumbnail = thumbnails[selectedIndex];
-    if (!thumbnail) return;
+    if (!strip || !thumbnail) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    thumbnail.scrollIntoView({
+    const centeredLeft = thumbnail.offsetLeft + thumbnail.offsetWidth / 2 - strip.clientWidth / 2;
+    const maximumLeft = strip.scrollWidth - strip.clientWidth;
+
+    strip.scrollTo({
+      left: Math.max(0, Math.min(centeredLeft, maximumLeft)),
       behavior: reducedMotion ? 'auto' : 'smooth',
-      block: 'nearest',
-      inline: 'center'
     });
   });
 
