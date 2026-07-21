@@ -1,74 +1,55 @@
 :root {
   font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #403a35;
-  background: #eee9e3;
+  color: #352f2a;
+  background: #eee8e1;
   font-synthesis: none;
-  line-height: 1.7;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; }
-button, input, textarea { font: inherit; }
+body { margin: 0; min-width: 320px; background: #eee8e1; }
+button, a { font: inherit; }
+img { display: block; max-width: 100%; }
 
 main {
-  width: min(100%, 480px);
-  min-height: 100vh;
+  width: min(100%, 520px);
   margin: 0 auto;
   overflow: hidden;
   background: #fffdf9;
-  box-shadow: 0 0 40px rgb(74 62 51 / 10%);
+  box-shadow: 0 0 32px rgb(55 43 33 / 10%);
 }
 
-.section {
-  padding: 80px 24px;
-  text-align: center;
+.hero { padding: 64px 24px 52px; text-align: center; background: #f6f1eb; }
+.eyebrow, .section-label { margin: 0 0 18px; font-size: .68rem; letter-spacing: .24em; color: #9b7f69; }
+.photo-frame { overflow: hidden; margin: 0 auto 36px; border-radius: 220px 220px 16px 16px; background: #e6ddd3; }
+.photo-frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: clamp(2rem, 8vw, 3rem); }
+h1 span { display: block; margin: 9px 0; font-family: inherit; font-size: .44em; font-style: italic; color: #967a66; }
+.date { margin: 28px 0 8px; letter-spacing: .14em; }
+.venue { margin: 0; color: #796e65; font-size: .9rem; }
+.section { padding: 68px 26px; text-align: center; border-top: 1px solid #eee6de; }
+h2 { margin: 0 0 26px; font-family: Georgia, "Times New Roman", serif; font-size: 1.55rem; font-weight: 500; }
+.intro p:last-child { margin: 0; line-height: 2; color: #655c55; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 350px; margin: 0 auto; }
+.calendar-grid span { padding-bottom: 10px; font-size: .75rem; color: #9a8e84; }
+.calendar-grid b, .calendar-grid strong, .calendar-grid i { display: grid; place-items: center; aspect-ratio: 1; font-size: .88rem; font-style: normal; font-weight: 400; }
+.calendar-grid strong { border-radius: 50%; background: #a98770; color: white; font-weight: 700; }
+.countdown { margin: 28px 0 0; color: #6f6259; }
+.gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.gallery-grid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #eee6de; }
+address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625950; }
+.button-link { display: inline-block; padding: 13px 22px; border: 1px solid #a98770; border-radius: 999px; color: #6d5646; text-decoration: none; }
+.muted { color: #8b8077; font-size: .85rem; }
+.account-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding: 16px; border-radius: 12px; background: #f7f2ec; text-align: left; }
+.account-card span, .account-card code { display: block; }
+.account-card code { margin-top: 6px; color: #5d544d; font-family: inherit; }
+.account-card button { border: 0; border-radius: 999px; padding: 9px 13px; background: #a98770; color: white; cursor: pointer; }
+.copy-status { min-height: 1.4em; color: #806c5e; font-size: .82rem; }
+.noscript-note { padding: 12px; background: #fff4dc; font-size: .82rem; }
+footer { padding: 42px 24px 56px; text-align: center; background: #3d352f; color: #f4eee8; }
+footer p { margin: 0 0 6px; }
+footer small { opacity: .7; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
-
-.hero { padding-top: 72px; }
-.eyebrow, .section-label {
-  margin: 0 0 18px;
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  color: #9a8473;
-}
-
-h1, h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
-h1 { font-size: clamp(1.85rem, 7vw, 2.5rem); }
-h1 span { display: inline-block; margin: 0 0.25rem; font-family: inherit; font-size: 0.7rem; color: #a28e7d; }
-h2 { font-size: 1.55rem; }
-.date { margin: 16px 0 38px; letter-spacing: 0.16em; }
-
-.photo-placeholder {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 4 / 5;
-  border: 1px solid #ddcec2;
-  background: linear-gradient(145deg, #f5eee7, #e8ddd3);
-  color: #9b8778;
-}
-
-.invitation { background: #f8f3ed; }
-.invitation p:last-child, .notice p:last-child { margin: 30px 0 0; }
-.details p { margin: 12px 0 0; }
-.muted { color: #948a82; font-size: 0.9rem; }
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 32px;
-}
-.gallery-placeholder {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-  background: #eee5dd;
-  color: #9b8778;
-  font-size: 0.8rem;
-}
-
-.notice { background: #f8f3ed; }
-footer { padding: 54px 24px; text-align: center; background: #403a35; color: #fffaf5; }
-footer p { margin: 0; }
-footer small { color: #c8bbb1; }

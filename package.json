@@ -1,16 +1,26 @@
 {
-  "name": "wedding",
+  "name": "dongsoo-eunji-wedding",
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "packageManager": "pnpm@11.15.1",
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": ">=11 <12"
+  },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^7.2.0",
-    "svelte": "^5.56.5",
-    "vite": "^8.1.5"
+    "@sveltejs/adapter-static": "3.0.10",
+    "@sveltejs/kit": "2.70.1",
+    "@sveltejs/vite-plugin-svelte": "7.2.0",
+    "svelte": "5.56.7",
+    "svelte-check": "4.3.4",
+    "typescript": "7.0.2",
+    "vite": "8.1.5"
   }
 }

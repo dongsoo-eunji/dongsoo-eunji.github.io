@@ -1,7 +1,8 @@
-node_modules/
-dist/
-.vite/
+node_modules
+.svelte-kit
+build
+.env
+.env.*
+!.env.example
 .DS_Store
-*.local
-
 source_images/
