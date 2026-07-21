@@ -169,12 +169,12 @@
     <p class="section-label">DATE</p>
     <h2 id="date-title">2026년 10월 4일</h2>
     <div class="calendar-grid" aria-label="2026년 10월 달력">
-      <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
-      <i></i><i></i><i></i><i></i><b>1</b><b>2</b><b>3</b>
-      <strong>4</strong><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>10</b>
-      <b>11</b><b>12</b><b>13</b><b>14</b><b>15</b><b>16</b><b>17</b>
-      <b>18</b><b>19</b><b>20</b><b>21</b><b>22</b><b>23</b><b>24</b>
-      <b>25</b><b>26</b><b>27</b><b>28</b><b>29</b><b>30</b><b>31</b>
+      <span class="sunday">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span class="saturday">토</span>
+      <i></i><i></i><i></i><i></i><b>1</b><b>2</b><b class="holiday" aria-label="3일, 개천절">3</b>
+      <strong class="sunday">4</strong><b class="holiday" aria-label="5일, 개천절 대체공휴일">5</b><b>6</b><b>7</b><b>8</b><b class="holiday" aria-label="9일, 한글날">9</b><b class="saturday">10</b>
+      <b class="sunday">11</b><b>12</b><b>13</b><b>14</b><b>15</b><b>16</b><b class="saturday">17</b>
+      <b class="sunday">18</b><b>19</b><b>20</b><b>21</b><b>22</b><b>23</b><b class="saturday">24</b>
+      <b class="sunday">25</b><b>26</b><b>27</b><b>28</b><b>29</b><b>30</b><b class="saturday">31</b>
     </div>
     {#if remainingDays !== null}
       <p class="countdown">결혼식까지 <strong>{remainingDays}</strong>일 남았습니다.</p>
