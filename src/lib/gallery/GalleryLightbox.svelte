@@ -92,7 +92,9 @@
 <div class="gallery-lightbox" role="dialog" aria-modal="true" aria-label="웨딩 사진 전체 보기">
   <div class="gallery-lightbox-header">
     <p aria-live="polite">{selectedIndex + 1} / {images.length}</p>
-    <button bind:this={closeButton} type="button" aria-label="사진 갤러리 닫기" onclick={close}>닫기</button>
+    <button bind:this={closeButton} class="gallery-icon-button" type="button" aria-label="사진 갤러리 닫기" onclick={close}>
+      <span aria-hidden="true">×</span>
+    </button>
   </div>
 
   <div
@@ -118,8 +120,12 @@
   </div>
 
   <div class="gallery-lightbox-controls">
-    <button type="button" aria-label="이전 사진" onclick={() => selectImage(previousIndex())}>이전</button>
-    <button type="button" aria-label="다음 사진" onclick={() => selectImage(nextIndex())}>다음</button>
+    <button class="gallery-icon-button" type="button" aria-label="이전 사진" onclick={() => selectImage(previousIndex())}>
+      <span aria-hidden="true">‹</span>
+    </button>
+    <button class="gallery-icon-button" type="button" aria-label="다음 사진" onclick={() => selectImage(nextIndex())}>
+      <span aria-hidden="true">›</span>
+    </button>
   </div>
 
   <GalleryThumbnailStrip {images} {selectedIndex} onselect={selectImage} />
