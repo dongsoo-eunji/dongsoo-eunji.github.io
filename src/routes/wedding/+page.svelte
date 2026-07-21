@@ -3,14 +3,18 @@
   import { onMount } from 'svelte';
   import GalleryGrid from '$lib/gallery/GalleryGrid.svelte';
   import GalleryLightbox from '$lib/gallery/GalleryLightbox.svelte';
-  import { galleryImages } from '$lib/gallery/gallery-data';
   import '$lib/gallery/gallery.css';
+  import type { PageData } from './$types';
+
+  let { data }: { data: PageData } = $props();
+  const galleryImages = $derived(data.galleryImages);
+  const coverImage = $derived(galleryImages.find((image) => image.id === 'wedding-r01')!);
 
   const weddingDate = new Date('2026-10-04T13:00:00+09:00');
-  let remainingDays: number | null = null;
-  let copyStatus = '';
-  let selectedImageIndex = 0;
-  let galleryOpen = false;
+  let remainingDays: number | null = $state(null);
+  let copyStatus = $state('');
+  let selectedImageIndex = $state(0);
+  let galleryOpen = $state(false);
 
   onMount(() => {
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
@@ -53,10 +57,10 @@
     <p class="eyebrow">WE ARE GETTING MARRIED</p>
     <div class="photo-frame">
       <img
-        src={`${base}/images/hero-placeholder.svg`}
-        alt="신랑 이동수와 신부 조은지의 대표 사진 자리"
-        width="960"
-        height="1200"
+        src={coverImage.src}
+        alt="신랑 이동수와 신부 조은지의 대표 사진"
+        width={coverImage.width}
+        height={coverImage.height}
       />
     </div>
     <h1 id="wedding-title">이동수 <span>그리고</span> 조은지</h1>
@@ -119,14 +123,14 @@
         <span>신랑 이동수</span>
         <code>은행 000-0000-0000</code>
       </div>
-      <button type="button" on:click={() => copyText('000-0000-0000')}>복사</button>
+      <button type="button" onclick={() => copyText('000-0000-0000')}>복사</button>
     </div>
     <div class="account-card">
       <div>
         <span>신부 조은지</span>
         <code>은행 000-0000-0000</code>
       </div>
-      <button type="button" on:click={() => copyText('000-0000-0000')}>복사</button>
+      <button type="button" onclick={() => copyText('000-0000-0000')}>복사</button>
     </div>
     <p class="copy-status" aria-live="polite">{copyStatus}</p>
     <noscript>
