@@ -15,6 +15,9 @@
   let copyStatus = $state('');
   let selectedImageIndex = $state(0);
   let galleryOpen = $state(false);
+  let musicElement: HTMLAudioElement;
+  let musicPlaying = $state(false);
+  let musicStatus = $state('');
 
   onMount(() => {
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
@@ -41,6 +44,42 @@
   function closeGallery(): void {
     galleryOpen = false;
   }
+
+  async function toggleMusic(): Promise<void> {
+    if (!musicElement) return;
+
+    if (!musicElement.paused) {
+      musicElement.pause();
+      return;
+    }
+
+    try {
+      await musicElement.play();
+    } catch {
+      if (!musicElement.paused) {
+        musicPlaying = true;
+        musicStatus = '';
+        return;
+      }
+
+      musicPlaying = false;
+      musicStatus = '음악을 재생하지 못했습니다. 다시 눌러 주세요.';
+    }
+  }
+
+  function handleMusicPlay(): void {
+    musicPlaying = true;
+    musicStatus = '';
+  }
+
+  function handleMusicPause(): void {
+    musicPlaying = false;
+  }
+
+  function handleMusicError(): void {
+    musicPlaying = false;
+    musicStatus = '음악 파일을 불러오지 못했습니다.';
+  }
 </script>
 
 <svelte:head>
@@ -55,6 +94,26 @@
 <main>
   <section class="hero" aria-labelledby="wedding-title">
     <p class="eyebrow">WE ARE GETTING MARRIED</p>
+    <button
+      class="music-toggle"
+      type="button"
+      aria-pressed={musicPlaying}
+      onclick={toggleMusic}
+    >
+      {musicPlaying ? 'Ⅱ 음악 잠시 멈추기' : '♫ 음악과 함께 보기'}
+    </button>
+    <audio
+      bind:this={musicElement}
+      src={`${base}/wedding/music/alex-morgan-calm-piano-541028.m4a`}
+      loop
+      preload="none"
+      onplay={handleMusicPlay}
+      onpause={handleMusicPause}
+      onerror={handleMusicError}
+    ></audio>
+    {#if musicStatus}
+      <p class="music-status" aria-live="polite">{musicStatus}</p>
+    {/if}
     <div class="photo-frame">
       <img
         src={coverImage.src}
