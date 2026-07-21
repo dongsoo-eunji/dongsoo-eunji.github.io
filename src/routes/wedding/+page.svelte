@@ -16,8 +16,11 @@
   let selectedImageIndex = $state(0);
   let galleryOpen = $state(false);
   let musicElement: HTMLAudioElement;
+  let musicReady = $state(false);
   let musicPlaying = $state(false);
+  let musicStarting = $state(false);
   let musicStatus = $state('');
+  let musicAttempt = 0;
 
   onMount(() => {
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
@@ -25,6 +28,7 @@
       0,
       Math.ceil((weddingDate.getTime() - Date.now()) / millisecondsPerDay)
     );
+    musicReady = musicElement.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA;
   });
 
   async function copyText(value: string): Promise<void> {
@@ -49,34 +53,55 @@
     if (!musicElement) return;
 
     if (!musicElement.paused) {
+      musicAttempt += 1;
       musicElement.pause();
       return;
     }
 
+    const attempt = ++musicAttempt;
+    musicStarting = true;
+    musicStatus = '';
+
+    window.setTimeout(() => {
+      if (musicStarting && musicAttempt === attempt) {
+        musicAttempt += 1;
+        musicElement.pause();
+        musicStarting = false;
+        musicStatus = '음악 재생을 시작하지 못했습니다. 다시 눌러 주세요.';
+      }
+    }, 4000);
+
     try {
       await musicElement.play();
     } catch {
-      if (!musicElement.paused) {
-        musicPlaying = true;
-        musicStatus = '';
-        return;
-      }
-
+      if (musicAttempt !== attempt) return;
+      musicStarting = false;
       musicPlaying = false;
       musicStatus = '음악을 재생하지 못했습니다. 다시 눌러 주세요.';
     }
   }
 
-  function handleMusicPlay(): void {
+  function handleMusicCanPlay(): void {
+    musicReady = true;
+  }
+
+  function handleMusicPlaying(): void {
+    musicAttempt += 1;
+    musicStarting = false;
     musicPlaying = true;
     musicStatus = '';
   }
 
   function handleMusicPause(): void {
+    musicAttempt += 1;
+    musicStarting = false;
     musicPlaying = false;
   }
 
   function handleMusicError(): void {
+    musicAttempt += 1;
+    musicReady = false;
+    musicStarting = false;
     musicPlaying = false;
     musicStatus = '음악 파일을 불러오지 못했습니다.';
   }
@@ -98,16 +123,19 @@
       class="music-toggle"
       type="button"
       aria-pressed={musicPlaying}
-      onclick={toggleMusic}
+      aria-busy={!musicReady || musicStarting}
+      disabled={!musicReady}
+      onclick={() => void toggleMusic()}
     >
-      {musicPlaying ? 'Ⅱ 음악 잠시 멈추기' : '♫ 음악과 함께 보기'}
+      {musicPlaying ? 'Ⅱ 음악 잠시 멈추기' : !musicReady ? '♫ 음악 불러오는 중' : musicStarting ? '♫ 음악 준비 중' : '♫ 음악과 함께 보기'}
     </button>
     <audio
       bind:this={musicElement}
       src={`${base}/wedding/music/alex-morgan-calm-piano-541028.m4a`}
       loop
-      preload="none"
-      onplay={handleMusicPlay}
+      preload="auto"
+      oncanplay={handleMusicCanPlay}
+      onplaying={handleMusicPlaying}
       onpause={handleMusicPause}
       onerror={handleMusicError}
     ></audio>
