@@ -244,7 +244,7 @@
     <h2 id="contact-title">마음 전하실 곳</h2>
     <div class="account-groups">
       <details class="account-group">
-        <summary>신랑측 계좌 보기</summary>
+        <summary>신랑측</summary>
         <div class="account-list">
           <div class="account-card">
             <div>
@@ -254,15 +254,15 @@
             <button type="button" onclick={() => copyText('501002-04-037448')}>복사</button>
           </div>
           <div class="account-card account-card-empty">
-            <span>신랑 아버지</span>
+            <span>아버지 이병술</span>
           </div>
           <div class="account-card account-card-empty">
-            <span>신랑 어머니</span>
+            <span>어머니 박미향</span>
           </div>
         </div>
       </details>
       <details class="account-group">
-        <summary>신부측 계좌 보기</summary>
+        <summary>신부측</summary>
         <div class="account-list">
           <div class="account-card">
             <div>
@@ -272,10 +272,10 @@
             <button type="button" onclick={() => copyText('4530-8752-032734')}>복사</button>
           </div>
           <div class="account-card account-card-empty">
-            <span>신부 아버지</span>
+            <span>아버지 조상기</span>
           </div>
           <div class="account-card account-card-empty">
-            <span>신부 어머니</span>
+            <span>어머니 최형숙</span>
           </div>
         </div>
       </details>
