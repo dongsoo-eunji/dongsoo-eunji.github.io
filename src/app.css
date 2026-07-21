@@ -49,6 +49,10 @@ h2 { margin: 0 0 26px; font-family: "Gowun Batang", serif; font-size: 1.55rem; f
 .countdown { margin: 28px 0 0; color: #6f6259; }
 address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625950; }
 .button-link { display: inline-block; padding: 13px 22px; border: 1px solid #a98770; border-radius: 999px; color: #6d5646; text-decoration: none; }
+.kakao-map { position: relative; display: block; overflow: hidden; border-radius: 12px; color: white; text-decoration: none; }
+.kakao-map img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; }
+.kakao-map span { position: absolute; right: 12px; bottom: 12px; border-radius: 999px; padding: 8px 11px; background: rgb(53 47 42 / 78%); font-size: .78rem; }
+.kakao-map:focus-visible { outline: 2px solid #806854; outline-offset: 3px; }
 .muted { color: #8b8077; font-size: .85rem; }
 .account-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding: 16px; border-radius: 12px; background: #f7f2ec; text-align: left; }
 .account-card span, .account-card code { display: block; }

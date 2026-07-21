@@ -193,11 +193,24 @@
     <p class="section-label">LOCATION</p>
     <h2 id="location-title">오시는 길</h2>
     <address>
-      라도무스 웨딩홀<br />
-      대전 유성구 동서대로 639
+      라도무스아트센터<br />
+      대전 유성구 동서대로 639 3층
     </address>
-    <a class="button-link" href="https://map.kakao.com" target="_blank" rel="noreferrer">
-      지도에서 보기
+    <a
+      class="kakao-map"
+      href="https://place.map.kakao.com/27596552"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="카카오맵에서 라도무스아트센터 위치 보기"
+    >
+      <img
+        src="https://staticmap.kakao.com/staticmap/og?type=place&srs=wgs84&size=800x400&service=placeweb&m=127.33364373611032%2C36.333058550294965"
+        alt="라도무스아트센터 위치 지도"
+        width="800"
+        height="400"
+        loading="lazy"
+      />
+      <span>카카오맵에서 크게 보기</span>
     </a>
   </section>
 
