@@ -1,0 +1,80 @@
+<script lang="ts">
+  import type { GalleryImage } from './gallery-data';
+
+  type Props = {
+    images: GalleryImage[];
+    selectedIndex: number;
+    onselect: (index: number) => void;
+  };
+
+  let { images, selectedIndex, onselect }: Props = $props();
+  let strip: HTMLDivElement;
+  let thumbnails: HTMLButtonElement[] = [];
+  let pointerId: number | null = null;
+  let pointerStartX = 0;
+  let scrollStartLeft = 0;
+  let dragged = false;
+
+  $effect(() => {
+    const thumbnail = thumbnails[selectedIndex];
+    if (!thumbnail) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    thumbnail.scrollIntoView({
+      behavior: reducedMotion ? 'auto' : 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+  });
+
+  function startDrag(event: PointerEvent): void {
+    if (event.pointerType === 'touch') return;
+    pointerId = event.pointerId;
+    pointerStartX = event.clientX;
+    scrollStartLeft = strip.scrollLeft;
+    dragged = false;
+    strip.setPointerCapture(event.pointerId);
+  }
+
+  function drag(event: PointerEvent): void {
+    if (pointerId !== event.pointerId) return;
+    const movement = event.clientX - pointerStartX;
+    dragged ||= Math.abs(movement) > 4;
+    strip.scrollLeft = scrollStartLeft - movement;
+  }
+
+  function finishDrag(event: PointerEvent): void {
+    if (pointerId !== event.pointerId) return;
+    if (strip.hasPointerCapture(event.pointerId)) strip.releasePointerCapture(event.pointerId);
+    pointerId = null;
+  }
+
+  function selectImage(index: number): void {
+    if (!dragged) onselect(index);
+    dragged = false;
+  }
+</script>
+
+<div
+  class="gallery-thumbnail-strip"
+  bind:this={strip}
+  role="group"
+  aria-label="사진 썸네일"
+  onpointerdown={startDrag}
+  onpointermove={drag}
+  onpointerup={finishDrag}
+  onpointercancel={finishDrag}
+>
+  {#each images as image, index (image.id)}
+    <button
+      bind:this={thumbnails[index]}
+      class:current={index === selectedIndex}
+      type="button"
+      aria-label={`${index + 1}번 사진 보기`}
+      aria-current={index === selectedIndex ? 'true' : undefined}
+      onclick={() => selectImage(index)}
+    >
+      <img src={image.thumbnailSrc} alt="" width="120" height="150" loading="lazy" />
+    </button>
+  {/each}
+</div>

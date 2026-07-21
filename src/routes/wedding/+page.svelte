@@ -1,10 +1,16 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import { onMount } from 'svelte';
+  import GalleryGrid from '$lib/gallery/GalleryGrid.svelte';
+  import GalleryLightbox from '$lib/gallery/GalleryLightbox.svelte';
+  import { galleryImages } from '$lib/gallery/gallery-data';
+  import '$lib/gallery/gallery.css';
 
   const weddingDate = new Date('2026-10-04T13:00:00+09:00');
   let remainingDays: number | null = null;
   let copyStatus = '';
+  let selectedImageIndex = 0;
+  let galleryOpen = false;
 
   onMount(() => {
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
@@ -21,6 +27,15 @@
     } catch {
       copyStatus = '길게 눌러 직접 복사해 주세요.';
     }
+  }
+
+  function openGallery(index: number): void {
+    selectedImageIndex = index;
+    galleryOpen = true;
+  }
+
+  function closeGallery(): void {
+    galleryOpen = false;
   }
 </script>
 
@@ -80,17 +95,7 @@
   <section class="section gallery" aria-labelledby="gallery-title">
     <p class="section-label">GALLERY</p>
     <h2 id="gallery-title">우리의 순간</h2>
-    <div class="gallery-grid">
-      {#each [1, 2, 3, 4] as number}
-        <img
-          src={`${base}/images/gallery-${number}.svg`}
-          alt={`갤러리 사진 ${number} 자리`}
-          width="720"
-          height="900"
-          loading="lazy"
-        />
-      {/each}
-    </div>
+    <GalleryGrid images={galleryImages} onopen={(index) => openGallery(index)} />
   </section>
 
   <section class="section location" aria-labelledby="location-title">
@@ -134,3 +139,12 @@
     <small>2026년 10월 4일</small>
   </footer>
 </main>
+
+{#if galleryOpen}
+  <GalleryLightbox
+    images={galleryImages}
+    selectedIndex={selectedImageIndex}
+    onclose={closeGallery}
+    onselect={(index) => (selectedImageIndex = index)}
+  />
+{/if}
