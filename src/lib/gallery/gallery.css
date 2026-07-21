@@ -8,6 +8,7 @@
 .gallery-lightbox-header p { margin: 0; font-variant-numeric: tabular-nums; }
 .gallery-lightbox button { min-width: 44px; min-height: 44px; border: 1px solid rgb(255 255 255 / 45%); border-radius: 8px; background: rgb(255 255 255 / 10%); color: white; cursor: pointer; }
 .gallery-lightbox .gallery-icon-button { display: grid; place-items: center; width: 44px; padding: 0; font-size: 30px; font-weight: 300; line-height: 1; }
+.gallery-lightbox .gallery-icon-button span { display: block; transform: translateY(-2px); }
 .gallery-lightbox-image { min-width: 0; min-height: 0; overflow: hidden; padding: 8px 0; touch-action: pan-y; }
 .gallery-lightbox-track { display: flex; min-width: 0; min-height: 0; height: 100%; }
 .gallery-lightbox-slide { display: grid; flex: 0 0 100%; place-items: center; box-sizing: border-box; min-width: 0; min-height: 0; height: 100%; overflow: hidden; padding: 0 4px; }
