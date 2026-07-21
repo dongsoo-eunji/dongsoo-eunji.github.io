@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
+  import emblaCarouselSvelte from 'embla-carousel-svelte';
+  import type { EmblaCarouselType } from 'embla-carousel';
   import type { GalleryImage } from './gallery-data';
   import GalleryThumbnailStrip from './GalleryThumbnailStrip.svelte';
 
@@ -12,13 +14,15 @@
 
   let { images, selectedIndex, onclose, onselect }: Props = $props();
   let closeButton: HTMLButtonElement;
-  let pointerStartX: number | null = null;
+  let emblaApi: EmblaCarouselType | undefined;
   let activeElement: HTMLElement | null = null;
   let originalOverflow = '';
   let originalOverscrollBehavior = '';
 
   const previousIndex = (): number => (selectedIndex - 1 + images.length) % images.length;
   const nextIndex = (): number => (selectedIndex + 1) % images.length;
+  const isPreloadedSlide = (index: number): boolean =>
+    index === selectedIndex || index === previousIndex() || index === nextIndex();
 
   function close(): void {
     onclose();
@@ -30,17 +34,27 @@
     if (event.key === 'ArrowRight') onselect(nextIndex());
   }
 
-  function startSwipe(event: PointerEvent): void {
-    pointerStartX = event.clientX;
+  function setEmblaApi(event: CustomEvent<EmblaCarouselType>): void {
+    emblaApi = event.detail;
+    emblaApi.scrollTo(selectedIndex, true);
   }
 
-  function finishSwipe(event: PointerEvent): void {
-    if (pointerStartX === null) return;
-    const distance = event.clientX - pointerStartX;
-    pointerStartX = null;
-    if (Math.abs(distance) < 48) return;
-    onselect(distance > 0 ? previousIndex() : nextIndex());
-  }
+  $effect(() => {
+    if (!emblaApi || emblaApi.selectedScrollSnap() === selectedIndex) return;
+    emblaApi.scrollTo(selectedIndex);
+  });
+
+  $effect(() => {
+    if (!emblaApi) return;
+    const syncSelectedIndex = (): void => onselect(emblaApi?.selectedScrollSnap() ?? selectedIndex);
+    emblaApi.on('select', syncSelectedIndex);
+    emblaApi.on('reInit', syncSelectedIndex);
+
+    return () => {
+      emblaApi?.off('select', syncSelectedIndex);
+      emblaApi?.off('reInit', syncSelectedIndex);
+    };
+  });
 
   $effect(() => {
     const neighbours = [previousIndex(), nextIndex()];
@@ -76,18 +90,25 @@
 
   <div
     class="gallery-lightbox-image"
-    role="group"
+    use:emblaCarouselSvelte={{ options: { duration: 28, loop: true }, plugins: [] }}
+    onemblaInit={setEmblaApi}
     aria-label="현재 선택된 사진. 좌우로 밀어 사진을 이동할 수 있습니다."
-    onpointerdown={startSwipe}
-    onpointerup={finishSwipe}
-    onpointercancel={() => (pointerStartX = null)}
   >
-    <img
-      src={images[selectedIndex].src}
-      alt={images[selectedIndex].alt}
-      width={images[selectedIndex].width}
-      height={images[selectedIndex].height}
-    />
+    <div class="gallery-lightbox-track">
+      {#each images as image, index (image.id)}
+        <div class="gallery-lightbox-slide">
+          {#if isPreloadedSlide(index)}
+            <img
+              src={image.src}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading={index === selectedIndex ? 'eager' : 'lazy'}
+            />
+          {/if}
+        </div>
+      {/each}
+    </div>
   </div>
 
   <div class="gallery-lightbox-controls">

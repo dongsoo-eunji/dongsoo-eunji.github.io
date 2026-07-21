@@ -22,5 +22,9 @@
     "svelte-check": "4.3.4",
     "typescript": "6.0.3",
     "vite": "8.1.5"
+  },
+  "dependencies": {
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-svelte": "^8.6.0"
   }
 }
