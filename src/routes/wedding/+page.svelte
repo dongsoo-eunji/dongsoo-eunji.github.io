@@ -10,7 +10,7 @@
   const galleryImages = $derived(data.galleryImages);
   const coverImage = $derived(galleryImages.find((image) => image.id === 'wedding-r01')!);
 
-  const weddingDate = new Date('2026-10-04T13:00:00+09:00');
+  const weddingDate = new Date('2026-10-04T14:30:00+09:00');
   let remainingDays: number | null = $state(null);
   let copyStatus = $state('');
   let selectedImageIndex = $state(0);
@@ -152,7 +152,7 @@
     </div>
     <h1 id="wedding-title">이동수 <span>그리고</span> 조은지</h1>
     <p class="date">2026. 10. 04. SUN</p>
-    <p class="venue">예식 장소와 시간은 추후 입력해 주세요.</p>
+    <p class="venue">라도무스 웨딩홀 14:30</p>
   </section>
 
   <section class="section intro" aria-labelledby="intro-title">
@@ -193,8 +193,8 @@
     <p class="section-label">LOCATION</p>
     <h2 id="location-title">오시는 길</h2>
     <address>
-      예식장 이름<br />
-      서울특별시 예시구 예시로 123
+      라도무스 웨딩홀<br />
+      대전 유성구 동서대로 639
     </address>
     <a class="button-link" href="https://map.kakao.com" target="_blank" rel="noreferrer">
       지도에서 보기
@@ -204,20 +204,19 @@
   <section class="section contact" aria-labelledby="contact-title">
     <p class="section-label">CONTACT</p>
     <h2 id="contact-title">마음 전하실 곳</h2>
-    <p class="muted">계좌 정보는 실제 정보로 교체해 주세요.</p>
     <div class="account-card">
       <div>
         <span>신랑 이동수</span>
-        <code>은행 000-0000-0000</code>
+        <code>국민은행 501002-04-037448</code>
       </div>
-      <button type="button" onclick={() => copyText('000-0000-0000')}>복사</button>
+      <button type="button" onclick={() => copyText('501002-04-037448')}>복사</button>
     </div>
     <div class="account-card">
       <div>
         <span>신부 조은지</span>
-        <code>은행 000-0000-0000</code>
+        <code>농협중앙회 4530-8752-032734</code>
       </div>
-      <button type="button" onclick={() => copyText('000-0000-0000')}>복사</button>
+      <button type="button" onclick={() => copyText('4530-8752-032734')}>복사</button>
     </div>
     <p class="copy-status" aria-live="polite">{copyStatus}</p>
     <noscript>
