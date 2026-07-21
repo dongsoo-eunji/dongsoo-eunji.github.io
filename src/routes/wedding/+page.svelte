@@ -113,6 +113,31 @@
     name="description"
     content="2026년 10월 4일, 이동수와 조은지의 결혼식에 초대합니다."
   />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="이동수 · 조은지 결혼합니다" />
+  <meta
+    property="og:description"
+    content="2026년 10월 4일, 이동수와 조은지의 결혼식에 초대합니다."
+  />
+  <meta property="og:url" content="https://dongsoo-eunji.github.io/wedding/" />
+  <meta
+    property="og:image"
+    content="https://dongsoo-eunji.github.io/wedding/images/gallery/thumb/r01.webp"
+  />
+  <meta property="og:image:type" content="image/webp" />
+  <meta property="og:image:width" content="400" />
+  <meta property="og:image:height" content="400" />
+  <meta property="og:image:alt" content="이동수와 조은지의 웨딩 사진" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="이동수 · 조은지 결혼합니다" />
+  <meta
+    name="twitter:description"
+    content="2026년 10월 4일, 이동수와 조은지의 결혼식에 초대합니다."
+  />
+  <meta
+    name="twitter:image"
+    content="https://dongsoo-eunji.github.io/wedding/images/gallery/thumb/r01.webp"
+  />
   <meta name="robots" content="noindex, nofollow, noarchive" />
 </svelte:head>
 
@@ -217,19 +242,43 @@
   <section class="section contact" aria-labelledby="contact-title">
     <p class="section-label">CONTACT</p>
     <h2 id="contact-title">마음 전하실 곳</h2>
-    <div class="account-card">
-      <div>
-        <span>신랑 이동수</span>
-        <code>국민은행 501002-04-037448</code>
-      </div>
-      <button type="button" onclick={() => copyText('501002-04-037448')}>복사</button>
-    </div>
-    <div class="account-card">
-      <div>
-        <span>신부 조은지</span>
-        <code>농협중앙회 4530-8752-032734</code>
-      </div>
-      <button type="button" onclick={() => copyText('4530-8752-032734')}>복사</button>
+    <div class="account-groups">
+      <details class="account-group">
+        <summary>신랑측 계좌 보기</summary>
+        <div class="account-list">
+          <div class="account-card">
+            <div>
+              <span>신랑 이동수</span>
+              <code>국민은행 501002-04-037448</code>
+            </div>
+            <button type="button" onclick={() => copyText('501002-04-037448')}>복사</button>
+          </div>
+          <div class="account-card account-card-empty">
+            <span>신랑 아버지</span>
+          </div>
+          <div class="account-card account-card-empty">
+            <span>신랑 어머니</span>
+          </div>
+        </div>
+      </details>
+      <details class="account-group">
+        <summary>신부측 계좌 보기</summary>
+        <div class="account-list">
+          <div class="account-card">
+            <div>
+              <span>신부 조은지</span>
+              <code>농협중앙회 4530-8752-032734</code>
+            </div>
+            <button type="button" onclick={() => copyText('4530-8752-032734')}>복사</button>
+          </div>
+          <div class="account-card account-card-empty">
+            <span>신부 아버지</span>
+          </div>
+          <div class="account-card account-card-empty">
+            <span>신부 어머니</span>
+          </div>
+        </div>
+      </details>
     </div>
     <p class="copy-status" aria-live="polite">{copyStatus}</p>
     <noscript>
