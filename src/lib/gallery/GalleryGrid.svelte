@@ -26,8 +26,8 @@
       <img
         src={image.thumbnailSrc}
         alt={image.alt}
-        width={image.width}
-        height={image.height}
+        width="400"
+        height="400"
         loading="lazy"
       />
     </a>
