@@ -371,7 +371,7 @@
           </div>
           <div class="account-card account-card-empty">
             <div>
-              <span>아버지 조상기</span>
+              <span>아버지 조성우</span>
               <code>농협 453087-56-018591</code>
             </div>
             <button type="button" onclick={() => copyText("453087-56-018591")}
