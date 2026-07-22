@@ -177,7 +177,7 @@
     </div>
     <h1 id="wedding-title">이동수 <span>그리고</span> 조은지</h1>
     <p class="date">2026. 10. 04. SUN</p>
-    <p class="venue">라도무스 웨딩홀 14:30 라도무스홀</p>
+    <p class="venue">라도무스아트센터 14:30 라도무스홀</p>
     <!-- TODO: 식사는 13:30 부터 제공된다고 적어야 함. 그러나 어디에? -->
   </section>
 
