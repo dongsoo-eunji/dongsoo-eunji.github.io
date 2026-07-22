@@ -300,10 +300,18 @@
             <button type="button" onclick={() => copyText('501002-04-037448')}>복사</button>
           </div>
           <div class="account-card account-card-empty">
-            <span>아버지 이병술</span>
+            <div>
+              <span>아버지 이병술</span>
+              <code>국민은행 502-21-1014-661</code>
+            </div>
+            <button type="button" onclick={() => copyText('502-21-1014-661')}>복사</button>
           </div>
           <div class="account-card account-card-empty">
-            <span>어머니 박미향</span>
+            <div>
+              <span>어머니 박미향</span>
+              <code>신한은행 110-357-089589</code>
+            </div>
+            <button type="button" onclick={() => copyText('110-357-089589')}>복사</button>
           </div>
         </div>
       </details>
@@ -313,15 +321,23 @@
           <div class="account-card">
             <div>
               <span>신부 조은지</span>
-              <code>농협중앙회 4530-8752-032734</code>
+              <code>농협 453087-52-032734</code>
             </div>
-            <button type="button" onclick={() => copyText('4530-8752-032734')}>복사</button>
+            <button type="button" onclick={() => copyText('453087-52-032734')}>복사</button>
           </div>
           <div class="account-card account-card-empty">
-            <span>아버지 조상기</span>
+            <div>
+              <span>아버지 조상기</span>
+              <code>농협 453087-56-018591</code>
+            </div>
+            <button type="button" onclick={() => copyText('453087-56-018591')}>복사</button>
           </div>
           <div class="account-card account-card-empty">
-            <span>어머니 최형숙</span>
+            <div>
+              <span>어머니 최형숙</span>
+              <code>농협 453087-56-032344</code>
+            </div>
+            <button type="button" onclick={() => copyText('453087-56-032344')}>복사</button>
           </div>
         </div>
       </details>
