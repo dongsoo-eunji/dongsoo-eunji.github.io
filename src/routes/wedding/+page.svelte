@@ -334,7 +334,7 @@
           <div class="account-card">
             <div>
               <span>신랑 이동수</span>
-              <code>국민은행 501002-04-037448</code>
+              <code>국민 501002-04-037448</code>
             </div>
             <button type="button" onclick={() => copyText("501002-04-037448")}
               >복사</button
@@ -343,7 +343,7 @@
           <div class="account-card account-card-empty">
             <div>
               <span>아버지 이병술</span>
-              <code>국민은행 502-21-1014-661</code>
+              <code>국민 502-21-1014-661</code>
             </div>
             <button type="button" onclick={() => copyText("502-21-1014-661")}
               >복사</button
@@ -352,7 +352,7 @@
           <div class="account-card account-card-empty">
             <div>
               <span>어머니 박미향</span>
-              <code>신한은행 110-357-089589</code>
+              <code>신한 110-357-089589</code>
             </div>
             <button type="button" onclick={() => copyText("110-357-089589")}
               >복사</button
