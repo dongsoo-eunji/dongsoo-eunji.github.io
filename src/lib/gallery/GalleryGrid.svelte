@@ -23,13 +23,15 @@
 <div id="wedding-gallery-grid" class="wedding-gallery-grid">
   {#each visibleImages as image, index (image.id)}
     <a href={image.src} onclick={(event) => openImage(event, index)}>
-      <img
-        src={image.thumbnailSrc}
-        alt={image.alt}
-        width="400"
-        height="400"
-        loading="lazy"
-      />
+      <span class="gallery-photo">
+        <img
+          src={image.thumbnailSrc}
+          alt={image.alt}
+          width="400"
+          height="400"
+          loading="lazy"
+        />
+      </span>
     </a>
   {/each}
 </div>
