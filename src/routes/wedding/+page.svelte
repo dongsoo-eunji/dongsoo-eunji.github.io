@@ -240,12 +240,54 @@
       />
       <span>카카오맵에서 크게 보기</span>
     </a>
-    <!-- TODO: 오시는 길에 교통 및 주차 관련 안내 소개 필요. 주차 어려울 수 있음 -->
+  </section>
+
+  <section class="section parking" aria-labelledby="parking-title">
+    <p class="section-label">PARKING</p>
+    <h2 id="parking-title">주차 안내</h2>
+    <p class="parking-lead">
+      라도무스아트센터 주차타워(1~6층)와<br />
+      인근 제2·제3·제4주차장을 이용해 주세요.
+    </p>
+    <img
+      class="parking-map"
+      src={`${base}/wedding/images/parking-map.webp`}
+      alt="라도무스아트센터와 주차타워, 제2·제3·제4주차장 위치 약도"
+      width="1092"
+      height="626"
+      loading="lazy"
+    />
+    <ul class="parking-list">
+      <li><strong>주차타워</strong><span>라도무스아트센터 1~6층</span></li>
+      <li><strong>제2주차장</strong><span>대전지방법원 등기국</span></li>
+      <li><strong>제3·제4주차장</strong><span>약도에 표시된 인근 야외 주차장</span></li>
+    </ul>
+    <p class="parking-note">
+      예식 당일 주차장이 혼잡할 수 있습니다.<br />
+      자차를 이용하시는 하객분들께서는 예식 시간보다<br />
+      조금 더 여유 있게 도착해 주시기를 부탁드립니다.
+    </p>
+    <div class="transit-guide">
+      <h3>대중교통 안내</h3>
+      <p>
+        유성온천역 6번 출구에서 106번 또는 706번 버스 승차<br />
+        106번은 홍도초등학교, 706번은 등기소/아이파크시티 하차<br />
+        목원대사거리 우측 방향으로 약 500m 도보
+      </p>
+    </div>
   </section>
 
   <section class="section contact" aria-labelledby="contact-title">
     <p class="section-label">CONTACT</p>
     <h2 id="contact-title">마음 전하실 곳</h2>
+    <div class="contact-message">
+      <p>소중한 마음으로 축하를 전해주시는 모든 분들께 진심으로 감사드립니다.</p>
+      <p>
+        부득이하게 참석이 어려우신 분들을 위해 축하의 마음을 전하실 수 있도록
+        계좌번호를 함께 안내드립니다.
+      </p>
+      <p>따뜻한 마음에 깊이 감사드리며, 오래도록 소중히 간직하겠습니다.</p>
+    </div>
     <div class="account-groups">
       <details class="account-group">
         <summary>신랑측</summary>
