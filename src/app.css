@@ -39,6 +39,11 @@ h1 span { display: block; margin: 9px 0; font-family: inherit; font-size: .44em;
 .section { padding: 68px 26px; text-align: center; border-top: 1px solid #eee6de; }
 h2 { margin: 0 0 26px; font-family: "Gowun Batang", serif; font-size: 1.55rem; font-weight: 700; }
 .intro p:last-child { margin: 0; line-height: 2; color: #655c55; }
+.event-times { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; overflow: hidden; max-width: 350px; margin: -6px auto 28px; border: 1px solid #e3d8ce; border-radius: 12px; background: #e3d8ce; }
+.event-times p { margin: 0; padding: 13px 8px; background: #f8f3ed; }
+.event-times span, .event-times strong { display: block; }
+.event-times span { margin-bottom: 5px; color: #947b69; font-size: .72rem; letter-spacing: .08em; }
+.event-times strong { color: #5e5148; font-size: .88rem; font-weight: 600; }
 .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 350px; margin: 0 auto; }
 .calendar-grid span { padding-bottom: 10px; font-size: .75rem; color: #9a8e84; }
 .calendar-grid b, .calendar-grid strong, .calendar-grid i { display: grid; place-items: center; aspect-ratio: 1; font-size: .88rem; font-style: normal; font-weight: 400; }

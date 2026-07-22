@@ -186,7 +186,6 @@
     <h1 id="wedding-title">이동수 <span>그리고</span> 조은지</h1>
     <p class="date">2026. 10. 04. SUN</p>
     <p class="venue">라도무스아트센터 14:30 라도무스홀</p>
-    <!-- TODO: 식사는 13:30 부터 제공된다고 적어야 함. 그러나 어디에? -->
   </section>
 
   <section class="section intro" aria-labelledby="intro-title">
@@ -202,6 +201,10 @@
   <section class="section calendar" aria-labelledby="date-title">
     <p class="section-label">DATE</p>
     <h2 id="date-title">2026년 10월 4일</h2>
+    <div class="event-times" aria-label="예식 및 식사 시간">
+      <p><span>예식</span><strong>오후 2시 30분</strong></p>
+      <p><span>식사</span><strong>오후 1시 30분부터</strong></p>
+    </div>
     <div class="calendar-grid" aria-label="2026년 10월 달력">
       <span class="sunday">일</span><span>월</span><span>화</span><span>수</span
       ><span>목</span><span>금</span><span class="saturday">토</span>
