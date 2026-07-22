@@ -54,7 +54,7 @@ address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625
 .kakao-map span { position: absolute; right: 12px; bottom: 12px; border-radius: 999px; padding: 8px 11px; background: rgb(53 47 42 / 78%); font-size: .78rem; }
 .kakao-map:focus-visible { outline: 2px solid #806854; outline-offset: 3px; }
 .parking-lead { margin: -4px 0 24px; color: #625950; line-height: 1.8; }
-.parking-map { width: 100%; height: auto; aspect-ratio: 1092 / 626; object-fit: contain; border: 1px solid #e8dfd6; border-radius: 12px; background: #f7f5f1; }
+.parking-map { width: 100%; height: auto; aspect-ratio: 728 / 418; object-fit: contain; border: 1px solid #e8dfd6; border-radius: 12px; background: #f7f5f1; }
 .parking-list { display: grid; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; text-align: left; }
 .parking-list li { display: grid; grid-template-columns: 94px 1fr; gap: 10px; padding: 12px 14px; border-radius: 10px; background: #f7f2ec; color: #625950; font-size: .86rem; }
 .parking-list strong { color: #705b4d; }

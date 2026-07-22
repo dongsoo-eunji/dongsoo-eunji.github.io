@@ -253,8 +253,8 @@
       class="parking-map"
       src={`${base}/wedding/images/parking-map.webp`}
       alt="라도무스아트센터와 주차타워, 제2·제3·제4주차장 위치 약도"
-      width="1092"
-      height="626"
+      width="728"
+      height="418"
       loading="lazy"
     />
     <ul class="parking-list">
