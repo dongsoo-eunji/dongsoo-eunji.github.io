@@ -1,32 +1,34 @@
 <script lang="ts">
-  import { base } from '$app/paths';
-  import { onMount } from 'svelte';
-  import GalleryGrid from '$lib/gallery/GalleryGrid.svelte';
-  import GalleryLightbox from '$lib/gallery/GalleryLightbox.svelte';
-  import '$lib/gallery/gallery.css';
-  import type { PageData } from './$types';
+  import { base } from "$app/paths";
+  import { onMount } from "svelte";
+  import GalleryGrid from "$lib/gallery/GalleryGrid.svelte";
+  import GalleryLightbox from "$lib/gallery/GalleryLightbox.svelte";
+  import "$lib/gallery/gallery.css";
+  import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
   const galleryImages = $derived(data.galleryImages);
-  const coverImage = $derived(galleryImages.find((image) => image.id === 'wedding-r01')!);
+  const coverImage = $derived(
+    galleryImages.find((image) => image.id === "wedding-r01")!,
+  );
 
-  const weddingDate = new Date('2026-10-04T14:30:00+09:00');
+  const weddingDate = new Date("2026-10-04T14:30:00+09:00");
   let remainingDays: number | null = $state(null);
-  let copyStatus = $state('');
+  let copyStatus = $state("");
   let selectedImageIndex = $state(0);
   let galleryOpen = $state(false);
   let musicElement: HTMLAudioElement;
   let musicReady = $state(false);
   let musicPlaying = $state(false);
   let musicStarting = $state(false);
-  let musicStatus = $state('');
+  let musicStatus = $state("");
   let musicAttempt = 0;
 
   onMount(() => {
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
     remainingDays = Math.max(
       0,
-      Math.ceil((weddingDate.getTime() - Date.now()) / millisecondsPerDay)
+      Math.ceil((weddingDate.getTime() - Date.now()) / millisecondsPerDay),
     );
     musicReady = musicElement.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA;
   });
@@ -34,9 +36,9 @@
   async function copyText(value: string): Promise<void> {
     try {
       await navigator.clipboard.writeText(value);
-      copyStatus = '복사되었습니다.';
+      copyStatus = "복사되었습니다.";
     } catch {
-      copyStatus = '길게 눌러 직접 복사해 주세요.';
+      copyStatus = "길게 눌러 직접 복사해 주세요.";
     }
   }
 
@@ -60,14 +62,14 @@
 
     const attempt = ++musicAttempt;
     musicStarting = true;
-    musicStatus = '';
+    musicStatus = "";
 
     window.setTimeout(() => {
       if (musicStarting && musicAttempt === attempt) {
         musicAttempt += 1;
         musicElement.pause();
         musicStarting = false;
-        musicStatus = '음악 재생을 시작하지 못했습니다. 다시 눌러 주세요.';
+        musicStatus = "음악 재생을 시작하지 못했습니다. 다시 눌러 주세요.";
       }
     }, 4000);
 
@@ -77,7 +79,7 @@
       if (musicAttempt !== attempt) return;
       musicStarting = false;
       musicPlaying = false;
-      musicStatus = '음악을 재생하지 못했습니다. 다시 눌러 주세요.';
+      musicStatus = "음악을 재생하지 못했습니다. 다시 눌러 주세요.";
     }
   }
 
@@ -89,7 +91,7 @@
     musicAttempt += 1;
     musicStarting = false;
     musicPlaying = true;
-    musicStatus = '';
+    musicStatus = "";
   }
 
   function handleMusicPause(): void {
@@ -103,7 +105,7 @@
     musicReady = false;
     musicStarting = false;
     musicPlaying = false;
-    musicStatus = '음악 파일을 불러오지 못했습니다.';
+    musicStatus = "음악 파일을 불러오지 못했습니다.";
   }
 </script>
 
@@ -152,7 +154,13 @@
       disabled={!musicReady}
       onclick={() => void toggleMusic()}
     >
-      {musicPlaying ? 'Ⅱ 음악 잠시 멈추기' : !musicReady ? '♫ 음악 불러오는 중' : musicStarting ? '♫ 음악 준비 중' : '♫ 음악과 함께 보기'}
+      {musicPlaying
+        ? "Ⅱ 음악 잠시 멈추기"
+        : !musicReady
+          ? "♫ 음악 불러오는 중"
+          : musicStarting
+            ? "♫ 음악 준비 중"
+            : "♫ 음악과 함께 보기"}
     </button>
     <audio
       bind:this={musicElement}
@@ -195,15 +203,31 @@
     <p class="section-label">DATE</p>
     <h2 id="date-title">2026년 10월 4일</h2>
     <div class="calendar-grid" aria-label="2026년 10월 달력">
-      <span class="sunday">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span class="saturday">토</span>
-      <i></i><i></i><i></i><i></i><b>1</b><b>2</b><b class="holiday" aria-label="3일, 개천절">3</b>
-      <strong class="sunday">4</strong><b class="holiday" aria-label="5일, 개천절 대체공휴일">5</b><b>6</b><b>7</b><b>8</b><b class="holiday" aria-label="9일, 한글날">9</b><b class="saturday">10</b>
-      <b class="sunday">11</b><b>12</b><b>13</b><b>14</b><b>15</b><b>16</b><b class="saturday">17</b>
-      <b class="sunday">18</b><b>19</b><b>20</b><b>21</b><b>22</b><b>23</b><b class="saturday">24</b>
-      <b class="sunday">25</b><b>26</b><b>27</b><b>28</b><b>29</b><b>30</b><b class="saturday">31</b>
+      <span class="sunday">일</span><span>월</span><span>화</span><span>수</span
+      ><span>목</span><span>금</span><span class="saturday">토</span>
+      <i></i><i></i><i></i><i></i><b>1</b><b>2</b><b
+        class="holiday"
+        aria-label="3일, 개천절">3</b
+      >
+      <strong class="sunday">4</strong><b
+        class="holiday"
+        aria-label="5일, 개천절 대체공휴일">5</b
+      ><b>6</b><b>7</b><b>8</b><b class="holiday" aria-label="9일, 한글날">9</b
+      ><b class="saturday">10</b>
+      <b class="sunday">11</b><b>12</b><b>13</b><b>14</b><b>15</b><b>16</b><b
+        class="saturday">17</b
+      >
+      <b class="sunday">18</b><b>19</b><b>20</b><b>21</b><b>22</b><b>23</b><b
+        class="saturday">24</b
+      >
+      <b class="sunday">25</b><b>26</b><b>27</b><b>28</b><b>29</b><b>30</b><b
+        class="saturday">31</b
+      >
     </div>
     {#if remainingDays !== null}
-      <p class="countdown">결혼식까지 <strong>{remainingDays}</strong>일 남았습니다.</p>
+      <p class="countdown">
+        결혼식까지 <strong>{remainingDays}</strong>일 남았습니다.
+      </p>
     {:else}
       <p class="countdown no-js-copy">2026년 10월 4일에 만나요.</p>
     {/if}
@@ -214,7 +238,10 @@
   <section class="section gallery" aria-labelledby="gallery-title">
     <p class="section-label">GALLERY</p>
     <h2 id="gallery-title">우리의 순간</h2>
-    <GalleryGrid images={galleryImages} onopen={(index) => openGallery(index)} />
+    <GalleryGrid
+      images={galleryImages}
+      onopen={(index) => openGallery(index)}
+    />
   </section>
 
   <section class="section location" aria-labelledby="location-title">
@@ -260,7 +287,10 @@
     <ul class="parking-list">
       <li><strong>주차타워</strong><span>라도무스아트센터 1~6층</span></li>
       <li><strong>제2주차장</strong><span>대전지방법원 등기국</span></li>
-      <li><strong>제3·제4주차장</strong><span>약도에 표시된 인근 야외 주차장</span></li>
+      <li>
+        <strong>제3·제4주차장</strong><span>약도에 표시된 인근 야외 주차장</span
+        >
+      </li>
     </ul>
     <p class="parking-note">
       예식 당일 주차장이 혼잡할 수 있습니다.<br />
@@ -281,12 +311,18 @@
     <p class="section-label">CONTACT</p>
     <h2 id="contact-title">마음 전하실 곳</h2>
     <div class="contact-message">
-      <p>소중한 마음으로 축하를 전해주시는 모든 분들께 진심으로 감사드립니다.</p>
       <p>
-        부득이하게 참석이 어려우신 분들을 위해 축하의 마음을 전하실 수 있도록
-        계좌번호를 함께 안내드립니다.
+        소중한 마음으로 축하를 전해주시는 모든 분들께 <br />
+        진심으로 감사드립니다.
       </p>
-      <p>따뜻한 마음에 깊이 감사드리며, 오래도록 소중히 간직하겠습니다.</p>
+      <p>
+        부득이하게 참석이 어려우신 분들을 위해 축하의 마음을 <br />
+        전하실 수 있도록 계좌번호를 함께 안내드립니다.
+      </p>
+      <p>
+        따뜻한 마음에 깊이 감사드리며, <br />
+        오래도록 소중히 간직하겠습니다.
+      </p>
     </div>
     <div class="account-groups">
       <details class="account-group">
@@ -297,21 +333,27 @@
               <span>신랑 이동수</span>
               <code>국민은행 501002-04-037448</code>
             </div>
-            <button type="button" onclick={() => copyText('501002-04-037448')}>복사</button>
+            <button type="button" onclick={() => copyText("501002-04-037448")}
+              >복사</button
+            >
           </div>
           <div class="account-card account-card-empty">
             <div>
               <span>아버지 이병술</span>
               <code>국민은행 502-21-1014-661</code>
             </div>
-            <button type="button" onclick={() => copyText('502-21-1014-661')}>복사</button>
+            <button type="button" onclick={() => copyText("502-21-1014-661")}
+              >복사</button
+            >
           </div>
           <div class="account-card account-card-empty">
             <div>
               <span>어머니 박미향</span>
               <code>신한은행 110-357-089589</code>
             </div>
-            <button type="button" onclick={() => copyText('110-357-089589')}>복사</button>
+            <button type="button" onclick={() => copyText("110-357-089589")}
+              >복사</button
+            >
           </div>
         </div>
       </details>
@@ -323,28 +365,36 @@
               <span>신부 조은지</span>
               <code>농협 453087-52-032734</code>
             </div>
-            <button type="button" onclick={() => copyText('453087-52-032734')}>복사</button>
+            <button type="button" onclick={() => copyText("453087-52-032734")}
+              >복사</button
+            >
           </div>
           <div class="account-card account-card-empty">
             <div>
               <span>아버지 조상기</span>
               <code>농협 453087-56-018591</code>
             </div>
-            <button type="button" onclick={() => copyText('453087-56-018591')}>복사</button>
+            <button type="button" onclick={() => copyText("453087-56-018591")}
+              >복사</button
+            >
           </div>
           <div class="account-card account-card-empty">
             <div>
               <span>어머니 최형숙</span>
               <code>농협 453087-56-032344</code>
             </div>
-            <button type="button" onclick={() => copyText('453087-56-032344')}>복사</button>
+            <button type="button" onclick={() => copyText("453087-56-032344")}
+              >복사</button
+            >
           </div>
         </div>
       </details>
     </div>
     <p class="copy-status" aria-live="polite">{copyStatus}</p>
     <noscript>
-      <p class="noscript-note">JavaScript 없이도 계좌번호와 예식 정보는 확인할 수 있습니다.</p>
+      <p class="noscript-note">
+        JavaScript 없이도 계좌번호와 예식 정보는 확인할 수 있습니다.
+      </p>
     </noscript>
   </section>
 
