@@ -94,12 +94,6 @@
     galleryOpen = false;
   }
 
-  function scrollToInvitation(): void {
-    document
-      .getElementById("wedding-title")
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-
   async function startMusic(showFailureMessage = true): Promise<void> {
     if (!musicElement || !musicElement.paused || musicStarting) return;
 
@@ -239,7 +233,6 @@
     <EnvelopeReveal
       image={coverImage}
       alt="신랑 이동수와 신부 조은지의 대표 사진"
-      onreveal={scrollToInvitation}
     />
     <h1 id="wedding-title">이동수 <span>그리고</span> 조은지</h1>
     <p class="date">2026. 10. 04. 일요일 오후 2시 30분</p>
