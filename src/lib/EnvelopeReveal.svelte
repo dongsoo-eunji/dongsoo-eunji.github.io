@@ -83,7 +83,7 @@
 
 <div
   class="envelope-scene"
-  style={`--photo-offset: ${opened ? 17.5 : 95}%; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
+  style={`--photo-offset: ${opened ? 14 : 95}%; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
 >
   <div class="envelope-back" aria-hidden="true"></div>
   <svg
@@ -92,7 +92,7 @@
     preserveAspectRatio="none"
     aria-hidden="true"
   >
-    <path d="M 2 0 Q 0 0 2 2 L 47 47 Q 50 50 53 47 L 98 2 Q 100 0 98 0 Z"></path>
+    <path d="M 0 0 L 47 47 Q 50 50 53 47 L 100 0 Z"></path>
   </svg>
   <div class="envelope-photo">
     <img
@@ -108,7 +108,7 @@
     preserveAspectRatio="none"
     aria-hidden="true"
   >
-    <path d="M 2 0 Q 0 0 2 2 L 47 47 Q 50 50 53 47 L 98 2 Q 100 0 98 0 Z"></path>
+    <path d="M 0 0 L 47 47 Q 50 50 53 47 L 100 0 Z"></path>
   </svg>
   <div class="envelope-front" aria-hidden="true">
     <span class="envelope-fold-left"></span>
@@ -140,7 +140,7 @@
 
   .envelope-photo {
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     top: 3%;
     left: 50%;
     box-sizing: border-box;
@@ -166,7 +166,7 @@
 
   .envelope-back {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 68.5%;
     right: 3%;
     bottom: 0;
@@ -201,7 +201,7 @@
   }
 
   .envelope-flap-open {
-    z-index: 1;
+    z-index: 0;
     top: 68.5%;
     opacity: var(--flap-open-opacity);
     transform: scaleY(-1);
