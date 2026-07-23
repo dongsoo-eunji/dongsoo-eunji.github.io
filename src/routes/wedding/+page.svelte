@@ -279,7 +279,7 @@
         aria-label="3일, 개천절">3</b
       >
       <strong class="sunday wedding-day" aria-label="4일, 오후 2시 30분">
-        <span>4</span>
+        <span><em>4</em></span>
         <small>14:30</small>
       </strong><b
         class="holiday"
