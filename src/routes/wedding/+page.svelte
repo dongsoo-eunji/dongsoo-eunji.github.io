@@ -23,6 +23,7 @@
   let musicStarting = $state(false);
   let musicStatus = $state("");
   let musicAttempt = 0;
+  let stopAutomaticMusic = (): void => {};
 
   onMount(() => {
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
@@ -30,6 +31,38 @@
       0,
       Math.ceil((weddingDate.getTime() - Date.now()) / millisecondsPerDay),
     );
+
+    const handleFirstInteraction = (event: Event): void => {
+      if (
+        event.target instanceof Element &&
+        event.target.closest(".music-toggle")
+      ) {
+        return;
+      }
+
+      void startMusic(false);
+    };
+
+    const passiveListener = { passive: true };
+    document.addEventListener(
+      "pointerdown",
+      handleFirstInteraction,
+      passiveListener,
+    );
+    document.addEventListener(
+      "touchstart",
+      handleFirstInteraction,
+      passiveListener,
+    );
+    document.addEventListener("wheel", handleFirstInteraction, passiveListener);
+
+    stopAutomaticMusic = () => {
+      document.removeEventListener("pointerdown", handleFirstInteraction);
+      document.removeEventListener("touchstart", handleFirstInteraction);
+      document.removeEventListener("wheel", handleFirstInteraction);
+    };
+
+    return stopAutomaticMusic;
   });
 
   async function copyText(value: string): Promise<void> {
@@ -50,6 +83,29 @@
     galleryOpen = false;
   }
 
+  async function startMusic(showFailureMessage = true): Promise<void> {
+    if (!musicElement || !musicElement.paused || musicStarting) return;
+
+    const attempt = ++musicAttempt;
+    musicStarting = true;
+    musicStatus = "";
+
+    try {
+      if (!musicElement.src) {
+        musicElement.src = musicSource;
+      }
+      await musicElement.play();
+    } catch (error) {
+      console.error("Wedding music playback failed.", error);
+      if (musicAttempt !== attempt) return;
+      musicStarting = false;
+      musicPlaying = false;
+      if (showFailureMessage) {
+        musicStatus = "음악을 재생하지 못했습니다. 다시 눌러 주세요.";
+      }
+    }
+  }
+
   async function toggleMusic(): Promise<void> {
     if (!musicElement) return;
 
@@ -67,25 +123,11 @@
       return;
     }
 
-    const attempt = ++musicAttempt;
-    musicStarting = true;
-    musicStatus = "";
-
-    try {
-      if (!musicElement.src) {
-        musicElement.src = musicSource;
-      }
-      await musicElement.play();
-    } catch (error) {
-      console.error("Wedding music playback failed.", error);
-      if (musicAttempt !== attempt) return;
-      musicStarting = false;
-      musicPlaying = false;
-      musicStatus = "음악을 재생하지 못했습니다. 다시 눌러 주세요.";
-    }
+    await startMusic();
   }
 
   function handleMusicPlaying(): void {
+    stopAutomaticMusic();
     musicAttempt += 1;
     musicStarting = false;
     musicPlaying = true;
