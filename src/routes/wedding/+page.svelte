@@ -1,6 +1,7 @@
 <script lang="ts">
   import { base } from "$app/paths";
   import { onMount } from "svelte";
+  import EnvelopeReveal from "$lib/EnvelopeReveal.svelte";
   import GalleryGrid from "$lib/gallery/GalleryGrid.svelte";
   import GalleryLightbox from "$lib/gallery/GalleryLightbox.svelte";
   import "$lib/gallery/gallery.css";
@@ -91,6 +92,12 @@
 
   function closeGallery(): void {
     galleryOpen = false;
+  }
+
+  function scrollToInvitation(): void {
+    document
+      .getElementById("wedding-title")
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   async function startMusic(showFailureMessage = true): Promise<void> {
@@ -229,14 +236,11 @@
     {#if musicStatus}
       <p class="music-status" aria-live="polite">{musicStatus}</p>
     {/if}
-    <div class="photo-frame">
-      <img
-        src={coverImage.src}
-        alt="신랑 이동수와 신부 조은지의 대표 사진"
-        width={coverImage.width}
-        height={coverImage.height}
-      />
-    </div>
+    <EnvelopeReveal
+      image={coverImage}
+      alt="신랑 이동수와 신부 조은지의 대표 사진"
+      onreveal={scrollToInvitation}
+    />
     <h1 id="wedding-title">이동수 <span>그리고</span> 조은지</h1>
     <p class="date">2026. 10. 04. 일요일 오후 2시 30분</p>
     <p class="venue">라도무스아트센터 3층 라도무스홀
