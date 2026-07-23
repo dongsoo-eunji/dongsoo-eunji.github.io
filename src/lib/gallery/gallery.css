@@ -29,11 +29,11 @@
 .gallery-thumbnail-strip img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; }
 
 @media (max-width: 699px) {
-  .gallery-lightbox-header { grid-row: 1; }
-  .gallery-lightbox-image { grid-row: 2 / 4; }
-  .gallery-lightbox-controls { z-index: 1; grid-row: 2 / 4; align-self: center; justify-content: space-between; pointer-events: none; }
+  .gallery-lightbox-header { grid-column: 1; grid-row: 1; }
+  .gallery-lightbox-image { grid-column: 1; grid-row: 2 / 4; }
+  .gallery-lightbox-controls { z-index: 1; grid-column: 1; grid-row: 2 / 4; align-self: center; justify-content: space-between; pointer-events: none; }
   .gallery-lightbox-controls button { pointer-events: auto; }
-  .gallery-thumbnail-strip { grid-row: 4; }
+  .gallery-thumbnail-strip { grid-column: 1; grid-row: 4; }
 }
 
 @media (min-width: 700px) and (orientation: landscape) {
