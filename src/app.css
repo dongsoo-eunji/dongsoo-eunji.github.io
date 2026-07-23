@@ -87,6 +87,8 @@ address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625
 .account-card-empty { min-height: 56px; color: #766a61; }
 .copy-status { min-height: 1.4em; color: #806c5e; font-size: .82rem; }
 .noscript-note { padding: 12px; background: #fff4dc; font-size: .82rem; }
+.closing-photo { margin: 0; background: #eee6de; }
+.closing-photo img { width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: contain; }
 footer { padding: 42px 24px 56px; text-align: center; background: #3d352f; color: #f4eee8; }
 footer p { margin: 0 0 6px; }
 footer small { opacity: .7; }

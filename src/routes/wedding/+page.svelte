@@ -402,7 +402,16 @@
     </noscript>
   </section>
 
-  <!-- TODO: 사진 하나 더 넣으면 좋지 않을까? -->
+  <figure class="closing-photo">
+    <img
+      src={`${base}/wedding/images/gallery/large/r09.webp`}
+      alt="이동수와 조은지의 웨딩 사진"
+      width="1200"
+      height="1800"
+      loading="lazy"
+    />
+  </figure>
+
   <footer>
     <p>이동수 · 조은지</p>
     <small>2026년 10월 4일</small>
