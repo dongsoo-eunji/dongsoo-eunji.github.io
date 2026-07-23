@@ -83,7 +83,7 @@
 
 <div
   class="envelope-scene"
-  style={`--photo-offset: ${opened ? 14 : 95}%; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
+  style={`--photo-offset: ${opened ? 14 : 106}%; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
 >
   <div class="envelope-back" aria-hidden="true"></div>
   <svg
