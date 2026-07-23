@@ -49,9 +49,9 @@ h2 { margin: 0 0 26px; font-family: "Gowun Batang", serif; font-size: 1.55rem; f
 .event-times span, .event-times strong { display: block; }
 .event-times span { margin-bottom: 5px; color: #947b69; font-size: .72rem; letter-spacing: .08em; }
 .event-times strong { color: #5e5148; font-size: .88rem; font-weight: 600; }
-.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 440px; margin: 0 auto; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; width: 100%; max-width: 440px; margin: 0 auto; }
 .calendar-grid span { padding-bottom: 10px; font-size: .75rem; color: #9a8e84; }
-.calendar-grid b, .calendar-grid strong, .calendar-grid i { display: grid; place-items: center; aspect-ratio: 1; font-size: .88rem; font-style: normal; font-weight: 400; }
+.calendar-grid b, .calendar-grid strong, .calendar-grid i { display: grid; min-width: 0; place-items: center; aspect-ratio: 1; font-size: .88rem; font-style: normal; font-weight: 400; }
 .calendar-grid .saturday { color: #547caf; }
 .calendar-grid .sunday, .calendar-grid .holiday { color: #c55b56; }
 .calendar-grid strong { border-radius: 50%; background: #a98770; color: white; font-weight: 700; }
@@ -59,7 +59,7 @@ h2 { margin: 0 0 26px; font-family: "Gowun Batang", serif; font-size: 1.55rem; f
 .calendar-grid strong.wedding-day { display: flex; aspect-ratio: auto; min-height: 58px; flex-direction: column; align-items: center; justify-content: center; border-radius: 0; background: transparent; color: #c55b56; }
 .calendar-grid strong.wedding-day span { display: grid; width: 34px; height: 34px; place-items: center; padding: 0; border-radius: 50%; background: #c55b56; color: white; font-size: .88rem; line-height: 1; }
 .calendar-grid strong.wedding-day small { margin-top: 5px; font-size: .58rem; font-weight: 600; line-height: 1; letter-spacing: .02em; }
-.countdown { margin: 28px 0 0; color: #6f6259; }
+.countdown { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .15em .3em; width: 100%; margin: 28px 0 0; color: #6f6259; line-height: 1.6; }
 address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625950; }
 .button-link { display: inline-block; padding: 13px 22px; border: 1px solid #a98770; border-radius: 999px; color: #6d5646; text-decoration: none; }
 .kakao-map { position: relative; display: block; overflow: hidden; border-radius: 12px; color: white; text-decoration: none; }
@@ -104,4 +104,9 @@ footer small { opacity: .7; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+}
+
+@media (max-width: 380px) {
+  .calendar-grid { gap: 4px; padding-bottom: 10px; }
+  .countdown { margin-top: 32px; }
 }
