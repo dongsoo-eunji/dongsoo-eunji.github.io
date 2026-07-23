@@ -22,6 +22,7 @@
   let musicPlaying = $state(false);
   let musicStarting = $state(false);
   let musicStatus = $state("");
+  let musicCompact = $state(false);
   let musicAttempt = 0;
   let stopAutomaticMusic = (): void => {};
 
@@ -44,6 +45,12 @@
     };
 
     const passiveListener = { passive: true };
+    const handleScroll = (): void => {
+      musicCompact = window.scrollY > 120;
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, passiveListener);
     document.addEventListener(
       "pointerdown",
       handleFirstInteraction,
@@ -62,7 +69,10 @@
       document.removeEventListener("wheel", handleFirstInteraction);
     };
 
-    return stopAutomaticMusic;
+    return () => {
+      stopAutomaticMusic();
+      window.removeEventListener("scroll", handleScroll);
+    };
   });
 
   async function copyText(value: string): Promise<void> {
@@ -187,16 +197,26 @@
     <p class="eyebrow">WE ARE GETTING MARRIED</p>
     <button
       class="music-toggle"
+      class:compact={musicCompact}
       type="button"
       aria-pressed={musicPlaying}
       aria-busy={musicStarting}
+      aria-label={musicPlaying
+        ? "음악 잠시 멈추기"
+        : musicStarting
+          ? "음악 준비 중"
+          : "음악과 함께 보기"}
       onclick={() => void toggleMusic()}
     >
-      {musicPlaying
-        ? "Ⅱ 음악 잠시 멈추기"
-        : musicStarting
-          ? "♫ 음악 준비 중"
-          : "♫ 음악과 함께 보기"}
+      {#if musicCompact}
+        <span aria-hidden="true">{musicPlaying ? "Ⅱ" : musicStarting ? "…" : "♫"}</span>
+      {:else}
+        {musicPlaying
+          ? "Ⅱ 음악 잠시 멈추기"
+          : musicStarting
+            ? "♫ 음악 준비 중"
+            : "♫ 음악과 함께 보기"}
+      {/if}
     </button>
     <audio
       bind:this={musicElement}

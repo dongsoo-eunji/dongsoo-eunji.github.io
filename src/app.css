@@ -29,6 +29,8 @@ main {
 .music-toggle:hover { background: #fffdf9; }
 .music-toggle:disabled { cursor: wait; opacity: .65; }
 .music-toggle:focus-visible { outline: 2px solid #806854; outline-offset: 3px; }
+.music-toggle.compact { position: fixed; z-index: 900; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: 44px; min-width: 44px; height: 44px; margin: 0; padding: 0; border-radius: 50%; background: rgb(255 253 249 / 92%); box-shadow: 0 5px 16px rgb(55 43 33 / 20%); backdrop-filter: blur(8px); }
+.music-toggle.compact span { font-size: 1rem; line-height: 1; }
 .music-status { margin: -10px 0 18px; color: #806c5e; font-size: .8rem; }
 .photo-frame { overflow: hidden; aspect-ratio: 3 / 4.5; margin: 0 auto 36px; border-radius: 220px 220px 16px 16px; background: #e6ddd3; }
 .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; transform: scale(1); transform-origin: center bottom; }
