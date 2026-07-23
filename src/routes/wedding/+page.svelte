@@ -411,7 +411,7 @@
               >복사</button
             >
           </div>
-          <div class="account-card account-card-empty">
+          <div class="account-card">
             <div>
               <span>아버지 이병술</span>
               <code>국민 502-21-1014-661</code>
@@ -420,7 +420,7 @@
               >복사</button
             >
           </div>
-          <div class="account-card account-card-empty">
+          <div class="account-card">
             <div>
               <span>어머니 박미향</span>
               <code>신한 110-357-089589</code>
@@ -443,7 +443,7 @@
               >복사</button
             >
           </div>
-          <div class="account-card account-card-empty">
+          <div class="account-card">
             <div>
               <span>아버지 조성우</span>
               <code>농협 453087-56-018591</code>
@@ -452,7 +452,7 @@
               >복사</button
             >
           </div>
-          <div class="account-card account-card-empty">
+          <div class="account-card">
             <div>
               <span>어머니 최형숙</span>
               <code>농협 453087-56-032344</code>
