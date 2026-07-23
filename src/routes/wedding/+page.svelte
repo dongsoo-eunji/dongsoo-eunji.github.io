@@ -403,13 +403,15 @@
   </section>
 
   <figure class="closing-photo">
-    <img
-      src={`${base}/wedding/images/gallery/large/r09.webp`}
-      alt="이동수와 조은지의 웨딩 사진"
-      width="1200"
-      height="1800"
-      loading="lazy"
-    />
+    <div class="closing-postcard">
+      <img
+        src={`${base}/wedding/images/gallery/large/r09.webp`}
+        alt="이동수와 조은지의 웨딩 사진"
+        width="1200"
+        height="1800"
+        loading="lazy"
+      />
+    </div>
   </figure>
 
   <footer>
