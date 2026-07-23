@@ -196,29 +196,31 @@
 <main>
   <section class="hero" aria-labelledby="wedding-title">
     <p class="eyebrow">WE ARE GETTING MARRIED</p>
-    <button
-      class="music-toggle"
-      class:compact={musicCompact}
-      type="button"
-      aria-pressed={musicPlaying}
-      aria-busy={musicStarting}
-      aria-label={musicPlaying
-        ? "음악 잠시 멈추기"
-        : musicStarting
-          ? "음악 준비 중"
-          : "음악과 함께 보기"}
-      onclick={() => void toggleMusic()}
-    >
-      {#if musicCompact}
-        <span aria-hidden="true">{musicPlaying ? "Ⅱ" : musicStarting ? "…" : "♫"}</span>
-      {:else}
-        {musicPlaying
-          ? "Ⅱ 음악 잠시 멈추기"
+    <div class="music-toggle-slot">
+      <button
+        class="music-toggle"
+        class:compact={musicCompact}
+        type="button"
+        aria-pressed={musicPlaying}
+        aria-busy={musicStarting}
+        aria-label={musicPlaying
+          ? "음악 잠시 멈추기"
           : musicStarting
-            ? "♫ 음악 준비 중"
-            : "♫ 음악과 함께 보기"}
-      {/if}
-    </button>
+            ? "음악 준비 중"
+            : "음악과 함께 보기"}
+        onclick={() => void toggleMusic()}
+      >
+        {#if musicCompact}
+          <span aria-hidden="true">{musicPlaying ? "Ⅱ" : musicStarting ? "…" : "♫"}</span>
+        {:else}
+          {musicPlaying
+            ? "Ⅱ 음악 잠시 멈추기"
+            : musicStarting
+              ? "♫ 음악 준비 중"
+              : "♫ 음악과 함께 보기"}
+        {/if}
+      </button>
+    </div>
     <audio
       bind:this={musicElement}
       loop
