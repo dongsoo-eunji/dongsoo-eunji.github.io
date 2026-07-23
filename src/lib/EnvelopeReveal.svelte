@@ -224,7 +224,6 @@
     bottom: 0;
     left: 3%;
     overflow: hidden;
-    background: var(--envelope-color);
   }
 
   .envelope-front span {
