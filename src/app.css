@@ -57,7 +57,7 @@ h2 { margin: 0 0 26px; font-family: "Gowun Batang", serif; font-size: 1.55rem; f
 .calendar-grid strong { border-radius: 50%; background: #a98770; color: white; font-weight: 700; }
 .calendar-grid strong.sunday, .calendar-grid strong.holiday { background: #c55b56; color: white; }
 .calendar-grid strong.wedding-day { position: relative; display: grid; aspect-ratio: auto; min-height: 58px; place-items: center; border-radius: 0; background: transparent; color: #c55b56; }
-.calendar-grid strong.wedding-day span { display: grid; width: 34px; height: 34px; place-items: center; padding: 0; border-radius: 50%; background: #c55b56; color: white; font-size: .88rem; line-height: 1; }
+.calendar-grid strong.wedding-day span { display: grid; width: 34px; height: 34px; place-items: center; padding: 0; border-radius: 50%; background: #c55b56; color: white; font-size: .88rem; line-height: 1; transform: translateY(1px); }
 .calendar-grid strong.wedding-day small { position: absolute; top: calc(50% + 22px); left: 50%; font-size: .58rem; font-weight: 600; line-height: 1; letter-spacing: .02em; transform: translateX(-50%); white-space: nowrap; }
 .countdown { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .15em .3em; width: 100%; margin: 28px 0 0; color: #6f6259; line-height: 1.6; }
 address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625950; }
