@@ -3,4 +3,4 @@ import { loadWeddingGallery } from '$lib/server/wedding-gallery';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = () =>
-  loadWeddingGallery('standard', { assetBase: base });
+  loadWeddingGallery('extended', { assetBase: base });

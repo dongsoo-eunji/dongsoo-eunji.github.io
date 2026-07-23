@@ -5,4 +5,4 @@
   let { data }: { data: PageData } = $props();
 </script>
 
-<WeddingInvitation {data} canonicalPath="/wedding/" />
+<WeddingInvitation {data} canonicalPath="/wedding/m/" />
