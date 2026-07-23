@@ -126,7 +126,7 @@
 
 <div
   class="envelope-scene"
-  style={`--envelope-shift: ${lowered ? 0 : -72}px; --photo-offset: ${opened ? 25.2 : 106}%; --photo-opacity: ${opened ? 1 : 0}; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
+  style={`--envelope-shift: ${lowered ? 0 : -120}px; --photo-offset: ${opened ? 25.2 : 106}%; --photo-opacity: ${opened ? 1 : 0}; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
 >
   <div class="envelope-motion">
     <div class="envelope-back" aria-hidden="true"></div>
