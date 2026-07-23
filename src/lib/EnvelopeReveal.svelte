@@ -194,7 +194,6 @@
   onclick={toggleEnvelope}
 >
   {opened ? "초대장 접기" : "아래로 내려 펼쳐보기"}
-  <span aria-hidden="true">{opened ? "⌃" : "⌄"}</span>
 </button>
 
 <style>
@@ -205,7 +204,7 @@
     overflow: hidden;
     width: 100%;
     aspect-ratio: 3 / 5.9;
-    margin: -120px auto 18px;
+    margin: -220px auto 18px;
   }
 
   .envelope-photo {
