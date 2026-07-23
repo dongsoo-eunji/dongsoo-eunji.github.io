@@ -153,7 +153,7 @@
     overflow: hidden;
     width: 100%;
     aspect-ratio: 3 / 5.9;
-    margin: 0 auto 18px;
+    margin: -120px auto 18px;
   }
 
   .envelope-photo {
