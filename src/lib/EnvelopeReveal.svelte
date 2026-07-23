@@ -10,6 +10,7 @@
   let { image, alt }: Props = $props();
   let opened = $state(false);
   let lowered = $state(false);
+  let autoOpenTimer: number | undefined;
   let movementTimer: number | undefined;
   let movementKind: "open" | "close" | undefined;
 
@@ -56,70 +57,16 @@
   }
 
   onMount(() => {
-    let previousScrollY = window.scrollY;
-    let touchStartY = 0;
-    opened = previousScrollY > 12;
-    lowered = opened;
-
-    const handleScroll = (): void => {
-      const currentScrollY = window.scrollY;
-      const direction = currentScrollY - previousScrollY;
-
-      if (direction > 1 && currentScrollY > 12) {
-        openEnvelope();
-      } else if (direction < -1 && currentScrollY <= 32) {
-        closeEnvelope();
-      }
-
-      previousScrollY = currentScrollY;
-    };
-
-    const handleWheel = (event: WheelEvent): void => {
-      if (event.deltaY > 0) {
-        openEnvelope();
-      } else if (event.deltaY < 0 && window.scrollY <= 32) {
-        closeEnvelope();
-      }
-    };
-
-    const handleTouchStart = (event: TouchEvent): void => {
-      touchStartY = event.touches[0]?.clientY ?? 0;
-    };
-
-    const handleTouchMove = (event: TouchEvent): void => {
-      const currentTouchY = event.touches[0]?.clientY ?? touchStartY;
-
-      if (currentTouchY < touchStartY - 4) {
-        openEnvelope();
-      } else if (currentTouchY > touchStartY + 4 && window.scrollY <= 32) {
-        closeEnvelope();
-      }
-    };
-
-    const handleKeyDown = (event: KeyboardEvent): void => {
-      if (["ArrowDown", "PageDown", " ", "End"].includes(event.key)) {
-        openEnvelope();
-      } else if (
-        ["ArrowUp", "PageUp", "Home"].includes(event.key) &&
-        window.scrollY <= 32
-      ) {
-        closeEnvelope();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("wheel", handleWheel, { passive: true });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("keydown", handleKeyDown);
+    autoOpenTimer = window.setTimeout(() => {
+      autoOpenTimer = undefined;
+      openEnvelope();
+    }, 180);
 
     return () => {
+      if (autoOpenTimer !== undefined) {
+        window.clearTimeout(autoOpenTimer);
+      }
       clearMovementTimer();
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("keydown", handleKeyDown);
     };
   });
 </script>
@@ -193,7 +140,7 @@
   aria-expanded={opened}
   onclick={toggleEnvelope}
 >
-  {opened ? "초대장 접기" : "아래로 내려 펼쳐보기"}
+  {opened ? "초대장 접기" : "초대장 펼쳐보기"}
 </button>
 
 <style>
