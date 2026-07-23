@@ -366,12 +366,6 @@
     cursor: pointer;
   }
 
-  .reveal-button span {
-    font-family: sans-serif;
-    font-size: 1.25rem;
-    line-height: .8;
-  }
-
   .reveal-button:focus-visible {
     border-radius: 8px;
     outline: 2px solid #806854;
