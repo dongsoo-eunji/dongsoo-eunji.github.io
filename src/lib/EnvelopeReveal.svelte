@@ -9,24 +9,66 @@
 
   let { image, alt }: Props = $props();
   let opened = $state(false);
+  let lowered = $state(false);
+  let movementTimer: number | undefined;
+  let movementKind: "open" | "close" | undefined;
 
   function toggleEnvelope(): void {
-    opened = !opened;
+    if (opened || lowered) {
+      closeEnvelope();
+    } else {
+      openEnvelope();
+    }
+  }
+
+  function clearMovementTimer(): void {
+    if (movementTimer !== undefined) {
+      window.clearTimeout(movementTimer);
+      movementTimer = undefined;
+    }
+    movementKind = undefined;
+  }
+
+  function openEnvelope(): void {
+    if (opened || movementKind === "open") return;
+
+    clearMovementTimer();
+    lowered = true;
+    movementKind = "open";
+    movementTimer = window.setTimeout(() => {
+      opened = true;
+      movementTimer = undefined;
+      movementKind = undefined;
+    }, 300);
+  }
+
+  function closeEnvelope(): void {
+    if ((!opened && !lowered) || movementKind === "close") return;
+
+    clearMovementTimer();
+    opened = false;
+    movementKind = "close";
+    movementTimer = window.setTimeout(() => {
+      lowered = false;
+      movementTimer = undefined;
+      movementKind = undefined;
+    }, 820);
   }
 
   onMount(() => {
     let previousScrollY = window.scrollY;
     let touchStartY = 0;
     opened = previousScrollY > 12;
+    lowered = opened;
 
     const handleScroll = (): void => {
       const currentScrollY = window.scrollY;
       const direction = currentScrollY - previousScrollY;
 
       if (direction > 1 && currentScrollY > 12) {
-        opened = true;
+        openEnvelope();
       } else if (direction < -1 && currentScrollY <= 32) {
-        opened = false;
+        closeEnvelope();
       }
 
       previousScrollY = currentScrollY;
@@ -34,9 +76,9 @@
 
     const handleWheel = (event: WheelEvent): void => {
       if (event.deltaY > 0) {
-        opened = true;
+        openEnvelope();
       } else if (event.deltaY < 0 && window.scrollY <= 32) {
-        opened = false;
+        closeEnvelope();
       }
     };
 
@@ -48,20 +90,20 @@
       const currentTouchY = event.touches[0]?.clientY ?? touchStartY;
 
       if (currentTouchY < touchStartY - 4) {
-        opened = true;
+        openEnvelope();
       } else if (currentTouchY > touchStartY + 4 && window.scrollY <= 32) {
-        opened = false;
+        closeEnvelope();
       }
     };
 
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (["ArrowDown", "PageDown", " ", "End"].includes(event.key)) {
-        opened = true;
+        openEnvelope();
       } else if (
         ["ArrowUp", "PageUp", "Home"].includes(event.key) &&
         window.scrollY <= 32
       ) {
-        opened = false;
+        closeEnvelope();
       }
     };
 
@@ -72,6 +114,7 @@
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      clearMovementTimer();
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("touchstart", handleTouchStart);
@@ -83,55 +126,64 @@
 
 <div
   class="envelope-scene"
-  style={`--photo-offset: ${opened ? 25.2 : 106}%; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
+  style={`--envelope-shift: ${lowered ? 0 : -72}px; --photo-offset: ${opened ? 25.2 : 106}%; --photo-opacity: ${opened ? 1 : 0}; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
 >
-  <div class="envelope-back" aria-hidden="true"></div>
-  <svg
-    class="envelope-flap envelope-flap-open"
-    viewBox="0 0 100 50"
-    preserveAspectRatio="none"
-    aria-hidden="true"
-  >
-    <path d="M 0 0 L 47 47 Q 50 50 53 47 L 100 0 Z"></path>
-  </svg>
-  <div class="envelope-photo">
-    <img
-      src={image.src}
-      {alt}
-      width={image.width}
-      height={image.height}
-    />
-  </div>
-  <svg
-    class="envelope-flap envelope-flap-closed"
-    viewBox="0 0 100 50"
-    preserveAspectRatio="none"
-    aria-hidden="true"
-  >
-    <path d="M 0 0 L 47 47 Q 50 50 53 47 L 100 0 Z"></path>
-  </svg>
-  <div class="envelope-front" aria-hidden="true">
+  <div class="envelope-motion">
+    <div class="envelope-back" aria-hidden="true"></div>
     <svg
-      class="envelope-fold-left"
-      viewBox="0 0 100 100"
+      class="envelope-flap envelope-flap-open"
+      viewBox="0 0 100 50"
       preserveAspectRatio="none"
+      aria-hidden="true"
     >
-      <path d="M 0 0 L 55 48 Q 59 52 55 56 L 0 100 Z"></path>
+      <path d="M 0 0 L 47 47 Q 50 50 53 47 L 100 0 Z"></path>
     </svg>
+    <div class="envelope-photo">
+      <img
+        src={image.src}
+        {alt}
+        width={image.width}
+        height={image.height}
+      />
+    </div>
     <svg
-      class="envelope-fold-right"
-      viewBox="0 0 100 100"
+      class="envelope-flap envelope-flap-closed"
+      viewBox="0 0 100 50"
       preserveAspectRatio="none"
+      aria-hidden="true"
     >
-      <path d="M 100 0 L 45 48 Q 41 52 45 56 L 100 100 Z"></path>
+      <path d="M 0 0 L 47 47 Q 50 50 53 47 L 100 0 Z"></path>
     </svg>
-    <svg
-      class="envelope-fold-center"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-    >
-      <path d="M 0 100 L 46 47 Q 50 42 54 47 L 100 100 Z"></path>
-    </svg>
+    <div class="envelope-front" aria-hidden="true">
+      <svg
+        class="envelope-fold-left"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <path d="M 0 0 L 55 48 Q 59 52 55 56 L 0 100 Z"></path>
+      </svg>
+      <svg
+        class="envelope-fold-right"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <path d="M 100 0 L 45 48 Q 41 52 45 56 L 100 100 Z"></path>
+      </svg>
+      <svg
+        class="envelope-fold-center"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <path d="M 0 100 L 46 47 Q 50 42 54 47 L 100 100 Z"></path>
+      </svg>
+    </div>
+    <button
+      class="envelope-hit-area"
+      type="button"
+      aria-label={opened ? "초대장 접기" : "초대장 펼치기"}
+      aria-expanded={opened}
+      onclick={toggleEnvelope}
+    ></button>
   </div>
 </div>
 
@@ -169,9 +221,38 @@
     border-radius: 4px;
     background: #fffdf9;
     box-shadow: 0 8px 24px rgb(34 27 23 / 24%);
+    opacity: var(--photo-opacity);
     transform: translate(-50%, var(--photo-offset));
-    transition: transform .8s cubic-bezier(.22, .72, .2, 1);
+    transition:
+      transform .8s cubic-bezier(.22, .72, .2, 1),
+      opacity .12s ease;
     will-change: transform;
+  }
+
+  .envelope-motion {
+    position: absolute;
+    inset: 0;
+    transform: translateY(var(--envelope-shift));
+    transition: transform .3s cubic-bezier(.22, .72, .2, 1);
+    will-change: transform;
+  }
+
+  .envelope-hit-area {
+    position: absolute;
+    z-index: 5;
+    top: 68.5%;
+    right: 3%;
+    bottom: 0;
+    left: 3%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .envelope-hit-area:focus-visible {
+    outline: 2px solid #806854;
+    outline-offset: 4px;
   }
 
   .envelope-photo img {
@@ -299,6 +380,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .envelope-motion,
     .envelope-photo {
       transition: none;
     }
