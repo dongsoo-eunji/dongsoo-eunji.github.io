@@ -1,6 +1,7 @@
 <script lang="ts">
   import { base } from "$app/paths";
   import { onMount } from "svelte";
+  import AccountCard from "$lib/AccountCard.svelte";
   import EnvelopeReveal from "$lib/EnvelopeReveal.svelte";
   import GalleryGrid from "$lib/gallery/GalleryGrid.svelte";
   import GalleryLightbox from "$lib/gallery/GalleryLightbox.svelte";
@@ -17,6 +18,8 @@
   const weddingDate = new Date("2026-10-04T14:30:00+09:00");
   let remainingDays: number | null = $state(null);
   let copyStatus = $state("");
+  let groomAccountsOpen = $state(false);
+  let brideAccountsOpen = $state(false);
   let selectedImageIndex = $state(0);
   let galleryOpen = $state(false);
   let musicElement: HTMLAudioElement;
@@ -75,15 +78,6 @@
       window.removeEventListener("scroll", handleScroll);
     };
   });
-
-  async function copyText(value: string): Promise<void> {
-    try {
-      await navigator.clipboard.writeText(value);
-      copyStatus = "복사되었습니다.";
-    } catch {
-      copyStatus = "길게 눌러 직접 복사해 주세요.";
-    }
-  }
 
   function openGallery(index: number): void {
     selectedImageIndex = index;
@@ -399,75 +393,61 @@
       </p>
     </div>
     <div class="account-groups">
-      <details class="account-group">
+      <details class="account-group" bind:open={groomAccountsOpen}>
         <summary>신랑측</summary>
-        <div class="account-list">
-          <div class="account-card">
-            <div>
-              <span>신랑 이동수</span>
-              <code>국민 501002-04-037448</code>
-            </div>
-            <button type="button" onclick={() => copyText("501002-04-037448")}
-              >복사</button
-            >
+        {#if groomAccountsOpen}
+          <div class="account-list">
+            <AccountCard
+              owner="신랑 이동수"
+              bank="국민"
+              shiftedAccount="056557-59-582993"
+              onstatus={(message) => (copyStatus = message)}
+            />
+            <AccountCard
+              owner="아버지 이병술"
+              bank="국민"
+              shiftedAccount="057-76-6569-116"
+              onstatus={(message) => (copyStatus = message)}
+            />
+            <AccountCard
+              owner="어머니 박미향"
+              bank="신한"
+              shiftedAccount="665-802-534034"
+              onstatus={(message) => (copyStatus = message)}
+            />
           </div>
-          <div class="account-card">
-            <div>
-              <span>아버지 이병술</span>
-              <code>국민 502-21-1014-661</code>
-            </div>
-            <button type="button" onclick={() => copyText("502-21-1014-661")}
-              >복사</button
-            >
-          </div>
-          <div class="account-card">
-            <div>
-              <span>어머니 박미향</span>
-              <code>신한 110-357-089589</code>
-            </div>
-            <button type="button" onclick={() => copyText("110-357-089589")}
-              >복사</button
-            >
-          </div>
-        </div>
+        {/if}
       </details>
-      <details class="account-group">
+      <details class="account-group" bind:open={brideAccountsOpen}>
         <summary>신부측</summary>
-        <div class="account-list">
-          <div class="account-card">
-            <div>
-              <span>신부 조은지</span>
-              <code>농협 453087-52-032734</code>
-            </div>
-            <button type="button" onclick={() => copyText("453087-52-032734")}
-              >복사</button
-            >
+        {#if brideAccountsOpen}
+          <div class="account-list">
+            <AccountCard
+              owner="신부 조은지"
+              bank="농협"
+              shiftedAccount="908532-07-587289"
+              onstatus={(message) => (copyStatus = message)}
+            />
+            <AccountCard
+              owner="아버지 조성우"
+              bank="농협"
+              shiftedAccount="908532-01-563046"
+              onstatus={(message) => (copyStatus = message)}
+            />
+            <AccountCard
+              owner="어머니 최형숙"
+              bank="농협"
+              shiftedAccount="908532-01-587899"
+              onstatus={(message) => (copyStatus = message)}
+            />
           </div>
-          <div class="account-card">
-            <div>
-              <span>아버지 조성우</span>
-              <code>농협 453087-56-018591</code>
-            </div>
-            <button type="button" onclick={() => copyText("453087-56-018591")}
-              >복사</button
-            >
-          </div>
-          <div class="account-card">
-            <div>
-              <span>어머니 최형숙</span>
-              <code>농협 453087-56-032344</code>
-            </div>
-            <button type="button" onclick={() => copyText("453087-56-032344")}
-              >복사</button
-            >
-          </div>
-        </div>
+        {/if}
       </details>
     </div>
     <p class="copy-status" aria-live="polite">{copyStatus}</p>
     <noscript>
       <p class="noscript-note">
-        JavaScript 없이도 계좌번호와 예식 정보는 확인할 수 있습니다.
+        계좌번호 확인을 위해 JavaScript를 켜 주세요.
       </p>
     </noscript>
   </section>

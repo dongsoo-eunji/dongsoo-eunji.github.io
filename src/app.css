@@ -94,6 +94,7 @@ address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625
 .account-card span, .account-card code { display: block; }
 .account-card code { margin-top: 6px; color: #5d544d; font-family: inherit; overflow-wrap: anywhere; }
 .account-card button { min-width: 52px; border: 0; border-radius: 999px; padding: 9px 13px; background: #a98770; color: white; white-space: nowrap; cursor: pointer; }
+.account-card button:disabled { cursor: wait; opacity: .6; }
 .account-card-empty { min-height: 56px; color: #766a61; }
 .copy-status { min-height: 1.4em; color: #806c5e; font-size: .82rem; }
 .noscript-note { padding: 12px; background: #fff4dc; font-size: .82rem; }

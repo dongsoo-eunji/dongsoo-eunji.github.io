@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "vite dev",
+    "account:test": "node --test scripts/account-shift.test.mjs",
     "gallery:prepare": "node scripts/prepare-gallery.mjs",
     "gallery:test": "node --test scripts/prepare-gallery.test.mjs",
     "prebuild": "pnpm gallery:prepare",
