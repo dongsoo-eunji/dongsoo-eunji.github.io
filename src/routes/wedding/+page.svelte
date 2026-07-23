@@ -184,8 +184,9 @@
       />
     </div>
     <h1 id="wedding-title">이동수 <span>그리고</span> 조은지</h1>
-    <p class="date">2026. 10. 04. SUN</p>
-    <p class="venue">라도무스아트센터 14:30 라도무스홀</p>
+    <p class="date">2026. 10. 04. 일요일</p>
+    <p class="venue">라도무스아트센터 3층 라도무스홀 14:30
+    </p>
   </section>
 
   <section class="section intro" aria-labelledby="intro-title">
@@ -251,8 +252,8 @@
     <p class="section-label">LOCATION</p>
     <h2 id="location-title">오시는 길</h2>
     <address>
-      라도무스아트센터 라도무스홀<br />
-      대전 유성구 동서대로 639 3층
+      라도무스아트센터 3층 라도무스홀 14:30<br />
+      대전 유성구 동서대로 639
     </address>
     <a
       class="kakao-map"
