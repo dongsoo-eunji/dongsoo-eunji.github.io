@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>이동수와 조은지 웨딩 QR 마크</title>
+  <rect width="64" height="64" fill="#fff"/>
+  <rect x="6" y="6" width="52" height="52" rx="13" fill="#000"/>
+  <path d="M32 36S21 29.6 21 21.5c0-4.6 5.8-7 11-1.8 5.2-5.2 11-2.8 11 1.8C43 29.6 32 36 32 36Z" fill="#fff"/>
+  <path fill="#fff" fill-rule="evenodd" d="M16 40h5c4.2 0 7 2 7 5s-2.8 5-7 5h-5V40Zm3 2.5v5h2c2.4 0 4-1 4-2.5s-1.6-2.5-4-2.5h-2Z"/>
+  <path d="M38 40h10v2.5h-7v1.3h6v2.4h-6v1.3h7V50H38V40Z" fill="#fff"/>
+</svg>
