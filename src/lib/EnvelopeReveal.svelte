@@ -83,7 +83,7 @@
 
 <div
   class="envelope-scene"
-  style={`--photo-offset: ${opened ? 14 : 106}%; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
+  style={`--photo-offset: ${opened ? 28 : 106}%; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
 >
   <div class="envelope-back" aria-hidden="true"></div>
   <svg
@@ -111,9 +111,27 @@
     <path d="M 0 0 L 47 47 Q 50 50 53 47 L 100 0 Z"></path>
   </svg>
   <div class="envelope-front" aria-hidden="true">
-    <span class="envelope-fold-left"></span>
-    <span class="envelope-fold-right"></span>
-    <span class="envelope-fold-center"></span>
+    <svg
+      class="envelope-fold-left"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+    >
+      <path d="M 0 0 L 55 48 Q 59 52 55 56 L 0 100 Z"></path>
+    </svg>
+    <svg
+      class="envelope-fold-right"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+    >
+      <path d="M 100 0 L 45 48 Q 41 52 45 56 L 100 100 Z"></path>
+    </svg>
+    <svg
+      class="envelope-fold-center"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+    >
+      <path d="M 0 100 L 46 47 Q 50 42 54 47 L 100 100 Z"></path>
+    </svg>
   </div>
 </div>
 
@@ -226,27 +244,26 @@
     overflow: hidden;
   }
 
-  .envelope-front span {
+  .envelope-front svg {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
   }
 
   .envelope-fold-left {
     z-index: 1;
-    background: #493e36;
-    clip-path: polygon(0 0, 58% 52%, 0 100%);
+    fill: #493e36;
   }
 
   .envelope-fold-right {
     z-index: 1;
-    background: #332c27;
-    clip-path: polygon(100% 0, 42% 52%, 100% 100%);
+    fill: #332c27;
   }
 
   .envelope-fold-center {
     z-index: 2;
-    background: #40362f;
-    clip-path: polygon(0 100%, 50% 42%, 100% 100%);
+    fill: #40362f;
   }
 
   .reveal-button {
@@ -278,15 +295,12 @@
 
   @media (prefers-reduced-motion: reduce) {
     .envelope-photo {
-      transform: translate(-50%, 0) !important;
+      transition: none;
     }
 
-    .envelope-flap-open {
-      opacity: 1 !important;
-    }
-
+    .envelope-flap-open,
     .envelope-flap-closed {
-      opacity: 0 !important;
+      transition: none;
     }
   }
 </style>
