@@ -249,7 +249,10 @@
         class="holiday"
         aria-label="3일, 개천절">3</b
       >
-      <strong class="sunday">4</strong><b
+      <strong class="sunday wedding-day" aria-label="4일, 오후 2시 30분">
+        <span>4</span>
+        <small>14:30</small>
+      </strong><b
         class="holiday"
         aria-label="5일, 개천절 대체공휴일">5</b
       ><b>6</b><b>7</b><b>8</b><b class="holiday" aria-label="9일, 한글날">9</b

@@ -51,6 +51,9 @@ h2 { margin: 0 0 26px; font-family: "Gowun Batang", serif; font-size: 1.55rem; f
 .calendar-grid .sunday, .calendar-grid .holiday { color: #c55b56; }
 .calendar-grid strong { border-radius: 50%; background: #a98770; color: white; font-weight: 700; }
 .calendar-grid strong.sunday, .calendar-grid strong.holiday { background: #c55b56; color: white; }
+.calendar-grid strong.wedding-day { display: flex; aspect-ratio: auto; min-height: 54px; flex-direction: column; justify-content: center; border-radius: 999px; }
+.calendar-grid strong.wedding-day span { padding: 0; color: inherit; font-size: .88rem; line-height: 1; }
+.calendar-grid strong.wedding-day small { margin-top: 4px; font-size: .58rem; font-weight: 600; line-height: 1; letter-spacing: .02em; }
 .countdown { margin: 28px 0 0; color: #6f6259; }
 address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625950; }
 .button-link { display: inline-block; padding: 13px 22px; border: 1px solid #a98770; border-radius: 999px; color: #6d5646; text-decoration: none; }
