@@ -221,6 +221,7 @@
   .envelope-flap-open {
     z-index: 0;
     top: 68.5%;
+    filter: drop-shadow(0 -3px 3px rgb(24 18 15 / 18%));
     opacity: var(--flap-open-opacity);
     transform: scaleY(-1);
     transform-origin: 50% 0;
@@ -230,6 +231,7 @@
   .envelope-flap-closed {
     z-index: 4;
     top: 68.5%;
+    filter: drop-shadow(0 3px 3px rgb(24 18 15 / 20%));
     opacity: var(--flap-closed-opacity);
     transition: opacity .35s ease;
   }
@@ -254,16 +256,19 @@
   .envelope-fold-left {
     z-index: 1;
     fill: #493e36;
+    filter: drop-shadow(3px -1px 3px rgb(24 18 15 / 18%));
   }
 
   .envelope-fold-right {
     z-index: 1;
     fill: #332c27;
+    filter: drop-shadow(-3px -1px 3px rgb(24 18 15 / 18%));
   }
 
   .envelope-fold-center {
     z-index: 2;
     fill: #40362f;
+    filter: drop-shadow(0 -4px 4px rgb(24 18 15 / 22%));
   }
 
   .reveal-button {
