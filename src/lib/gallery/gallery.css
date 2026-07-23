@@ -31,7 +31,8 @@
 @media (max-width: 699px) {
   .gallery-lightbox-header { grid-row: 1; }
   .gallery-lightbox-image { grid-row: 2 / 4; }
-  .gallery-lightbox-controls { z-index: 1; grid-row: 3; align-self: end; justify-content: space-between; }
+  .gallery-lightbox-controls { z-index: 1; grid-row: 2 / 4; align-self: center; justify-content: space-between; pointer-events: none; }
+  .gallery-lightbox-controls button { pointer-events: auto; }
   .gallery-thumbnail-strip { grid-row: 4; }
 }
 
