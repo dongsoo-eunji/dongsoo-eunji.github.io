@@ -73,7 +73,7 @@
 
 <div
   class="envelope-scene"
-  style={`--envelope-shift: ${lowered ? 0 : -120}px; --photo-offset: ${opened ? 25.2 : 106}%; --photo-opacity: ${opened ? 1 : 0}; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
+  style={`--envelope-shift: ${lowered ? 0 : -120}px; --photo-offset: ${opened ? 0 : 106}%; --photo-opacity: ${opened ? 1 : 0}; --flap-closed-opacity: ${opened ? 0 : 1}; --flap-open-opacity: ${opened ? 1 : 0};`}
 >
   <div class="envelope-motion">
     <div class="envelope-back" aria-hidden="true"></div>
@@ -150,14 +150,14 @@
     isolation: isolate;
     overflow: hidden;
     width: 100%;
-    aspect-ratio: 3 / 5.9;
+    aspect-ratio: 1 / 1.55;
     margin: 0 auto 18px;
   }
 
   .envelope-photo {
     position: absolute;
     z-index: 2;
-    top: 3%;
+    top: 0;
     left: 50%;
     box-sizing: border-box;
     overflow: hidden;
@@ -186,7 +186,7 @@
   .envelope-hit-area {
     position: absolute;
     z-index: 5;
-    top: 68.5%;
+    top: 60%;
     right: 3%;
     bottom: 0;
     left: 3%;
@@ -212,7 +212,7 @@
   .envelope-back {
     position: absolute;
     z-index: 1;
-    top: 68.5%;
+    top: 60%;
     right: 3%;
     bottom: 0;
     left: 3%;
@@ -236,7 +236,7 @@
     position: absolute;
     right: 3%;
     left: 3%;
-    height: 22%;
+    height: 28%;
     width: 94%;
     color: #4a4039;
   }
@@ -247,7 +247,7 @@
 
   .envelope-flap-open {
     z-index: 0;
-    top: 68.5%;
+    top: 60%;
     filter: drop-shadow(0 -3px 3px rgb(24 18 15 / 18%));
     opacity: var(--flap-open-opacity);
     transform: scaleY(-1);
@@ -257,7 +257,7 @@
 
   .envelope-flap-closed {
     z-index: 4;
-    top: 68.5%;
+    top: 60%;
     filter: drop-shadow(0 3px 3px rgb(24 18 15 / 20%));
     opacity: var(--flap-closed-opacity);
     transition: opacity .35s ease;
@@ -266,7 +266,7 @@
   .envelope-front {
     position: absolute;
     z-index: 3;
-    top: 68.5%;
+    top: 60%;
     right: 3%;
     bottom: 0;
     left: 3%;
