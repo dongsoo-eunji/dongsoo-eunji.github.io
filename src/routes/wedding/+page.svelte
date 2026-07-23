@@ -253,6 +253,18 @@
       귀한 걸음으로 함께하시어<br />
       축복해 주시면 감사하겠습니다.
     </p>
+    <div class="family-introductions" aria-label="양가 가족 소개">
+      <p>
+        <span class="parent-names"><span>이병술</span><span>박미향</span></span>
+        <span class="family-relation">의 아들</span>
+        <strong>이동수</strong>
+      </p>
+      <p>
+        <span class="parent-names"><span>조성우</span><span>최형숙</span></span>
+        <span class="family-relation">의 딸</span>
+        <strong>조은지</strong>
+      </p>
+    </div>
   </section>
 
   <section class="section calendar" aria-labelledby="date-title">
