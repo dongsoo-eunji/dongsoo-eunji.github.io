@@ -140,7 +140,7 @@
 
   .envelope-photo {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 3%;
     left: 50%;
     box-sizing: border-box;
@@ -166,7 +166,7 @@
 
   .envelope-back {
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     top: 68.5%;
     right: 3%;
     bottom: 0;
