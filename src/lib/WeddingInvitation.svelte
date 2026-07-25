@@ -5,6 +5,7 @@
   import EnvelopeReveal from "$lib/EnvelopeReveal.svelte";
   import GalleryGrid from "$lib/gallery/GalleryGrid.svelte";
   import GalleryLightbox from "$lib/gallery/GalleryLightbox.svelte";
+  import { shouldRefreshGallery } from "$lib/gallery/gallery-refresh";
   import "$lib/gallery/gallery.css";
   import type { GalleryImage } from "$lib/gallery/gallery-data";
 
@@ -15,7 +16,8 @@
     data: { galleryImages: GalleryImage[] };
     canonicalPath: "/wedding/" | "/wedding/m/";
   } = $props();
-  const galleryImages = $derived(data.galleryImages);
+  let refreshedGalleryImages = $state<GalleryImage[] | null>(null);
+  const galleryImages = $derived(refreshedGalleryImages ?? data.galleryImages);
   const canonicalUrl = $derived(
     `https://dongsoo-eunji.github.io${canonicalPath}`,
   );
@@ -35,6 +37,7 @@
   let musicStatus = $state("");
   let musicCompact = $state(false);
   let musicAttempt = 0;
+  let galleryRefreshPending = false;
   let stopAutomaticMusic = (): void => {};
 
   onMount(() => {
@@ -59,9 +62,16 @@
     const handleScroll = (): void => {
       musicCompact = window.scrollY > 120;
     };
+    const handleVisibilityChange = (): void => {
+      if (document.visibilityState === "visible") {
+        void refreshGalleryIfStale();
+      }
+    };
 
     handleScroll();
+    void refreshGalleryIfStale();
     window.addEventListener("scroll", handleScroll, passiveListener);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     document.addEventListener(
       "pointerdown",
       handleFirstInteraction,
@@ -83,8 +93,55 @@
     return () => {
       stopAutomaticMusic();
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   });
+
+  async function refreshGalleryIfStale(): Promise<void> {
+    if (galleryRefreshPending) return;
+
+    const storageKey = `wedding-gallery-last-opened:${canonicalPath}`;
+    const now = Date.now();
+    let lastOpenedAt: string | null = null;
+
+    try {
+      lastOpenedAt = window.localStorage.getItem(storageKey);
+      window.localStorage.setItem(storageKey, String(now));
+    } catch {
+      // Storage can be unavailable in restricted browsing modes.
+    }
+
+    if (!shouldRefreshGallery(lastOpenedAt, now)) return;
+
+    galleryRefreshPending = true;
+
+    try {
+      const response = await fetch(
+        `${base}${canonicalPath}gallery.json?refresh=${now}`,
+        { cache: "no-store" },
+      );
+      if (!response.ok) {
+        throw new Error(`Gallery refresh failed with ${response.status}.`);
+      }
+
+      const refreshed = (await response.json()) as {
+        galleryImages?: GalleryImage[];
+      };
+      if (!Array.isArray(refreshed.galleryImages) || refreshed.galleryImages.length === 0) {
+        throw new Error("Gallery refresh returned no images.");
+      }
+
+      refreshedGalleryImages = refreshed.galleryImages;
+      selectedImageIndex = Math.min(
+        selectedImageIndex,
+        galleryImages.length - 1,
+      );
+    } catch (error) {
+      console.error("Wedding gallery refresh failed.", error);
+    } finally {
+      galleryRefreshPending = false;
+    }
+  }
 
   function openGallery(index: number): void {
     selectedImageIndex = index;

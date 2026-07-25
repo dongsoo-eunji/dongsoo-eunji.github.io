@@ -7,6 +7,10 @@ import {
   loadWeddingGallery,
   selectGalleryFileNames
 } from '../src/lib/server/wedding-gallery.ts';
+import {
+  galleryRefreshInterval,
+  shouldRefreshGallery
+} from '../src/lib/gallery/gallery-refresh.ts';
 
 const sourceDirectory = path.resolve('static/wedding/images/gallery/large');
 const sourceImage = path.join(
@@ -78,4 +82,19 @@ test('fails when a gallery variant has no images', async (t) => {
     loadWeddingGallery('standard', directories),
     /standard wedding gallery requires at least one image/
   );
+});
+
+test('refreshes the gallery on first open or after one hour', () => {
+  const now = Date.parse('2026-07-25T12:00:00Z');
+
+  assert.equal(shouldRefreshGallery(null, now), true);
+  assert.equal(shouldRefreshGallery(String(now - galleryRefreshInterval), now), true);
+  assert.equal(shouldRefreshGallery(String(now - galleryRefreshInterval + 1), now), false);
+});
+
+test('refreshes the gallery when its stored open time is invalid', () => {
+  const now = Date.parse('2026-07-25T12:00:00Z');
+
+  assert.equal(shouldRefreshGallery('invalid', now), true);
+  assert.equal(shouldRefreshGallery(String(now + 1), now), true);
 });
