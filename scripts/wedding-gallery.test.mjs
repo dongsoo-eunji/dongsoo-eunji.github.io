@@ -70,3 +70,12 @@ test('fails when a selected gallery image has no thumbnail', async (t) => {
     /Missing gallery thumbnail: thumb\/r02m\.webp/
   );
 });
+
+test('fails when a gallery variant has no images', async (t) => {
+  const directories = await fixture(t, ['r01m.webp']);
+
+  await assert.rejects(
+    loadWeddingGallery('standard', directories),
+    /standard wedding gallery requires at least one image/
+  );
+});

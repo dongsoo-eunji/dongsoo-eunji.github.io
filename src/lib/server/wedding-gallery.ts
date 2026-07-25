@@ -52,8 +52,8 @@ export async function loadWeddingGallery(
     thumbnailEntries.filter((entry) => entry.isFile()).map((entry) => entry.name)
   );
 
-  if (!largeNames.includes('r01.webp')) {
-    throw new Error('The representative gallery image large/r01.webp is required.');
+  if (largeNames.length === 0) {
+    throw new Error(`The ${variant} wedding gallery requires at least one image.`);
   }
 
   const galleryImages: GalleryImage[] = await Promise.all(largeNames.map(async (fileName, index) => {

@@ -1,12 +1,16 @@
 import assert from 'node:assert/strict';
-import { copyFile, mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { imageSize } from 'image-size';
 import { prepareGallery } from './prepare-gallery.mjs';
 
-const sourceImage = path.resolve('static/wedding/images/gallery/large/r01.webp');
+const sourceDirectory = path.resolve('static/wedding/images/gallery/large');
+const sourceImage = path.join(
+  sourceDirectory,
+  (await readdir(sourceDirectory)).find((name) => name.endsWith('.webp'))
+);
 
 async function fixture(t) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'wedding-gallery-'));

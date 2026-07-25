@@ -19,9 +19,7 @@
   const canonicalUrl = $derived(
     `https://dongsoo-eunji.github.io${canonicalPath}`,
   );
-  const coverImage = $derived(
-    galleryImages.find((image) => image.id === "wedding-r01")!,
-  );
+  const coverImage = $derived(galleryImages[0]);
   const musicSource = `${base}/wedding/music/alex-morgan-calm-piano-541028.m4a`;
 
   const weddingDate = new Date("2026-10-04T14:30:00+09:00");
@@ -177,7 +175,7 @@
   <meta property="og:url" content={canonicalUrl} />
   <meta
     property="og:image"
-    content="https://dongsoo-eunji.github.io/wedding/images/gallery/thumb/r01.webp"
+    content="https://dongsoo-eunji.github.io/wedding/images/gallery/thumb/r0100.webp"
   />
   <meta property="og:image:type" content="image/webp" />
   <meta property="og:image:width" content="400" />
@@ -191,7 +189,7 @@
   />
   <meta
     name="twitter:image"
-    content="https://dongsoo-eunji.github.io/wedding/images/gallery/thumb/r01.webp"
+    content="https://dongsoo-eunji.github.io/wedding/images/gallery/thumb/r0100.webp"
   />
   <meta name="robots" content="noindex, nofollow, noarchive" />
 </svelte:head>
@@ -464,7 +462,7 @@
   <figure class="closing-photo">
     <div class="closing-postcard">
       <img
-        src={`${base}/wedding/images/gallery/large/r09.webp`}
+        src={`${base}/wedding/images/gallery/large/r0900.webp`}
         alt="이동수와 조은지의 웨딩 사진"
         width="1200"
         height="1800"
