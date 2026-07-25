@@ -23,15 +23,13 @@ export function selectGalleryFileNames(
   const images = fileNames.filter((fileName) =>
     imageExtensions.has(path.extname(fileName).toLowerCase())
   );
-  const withPrefix = (prefix: 'r' | 'm') =>
-    images
-      .filter((fileName) => new RegExp(`^${prefix}\\d+$`).test(path.parse(fileName).name))
-      .sort(naturalOrder.compare);
+  const galleryImages = images
+    .filter((fileName) => /^r\d+m?$/.test(path.parse(fileName).name))
+    .sort(naturalOrder.compare);
 
-  const regularImages = withPrefix('r');
   return variant === 'extended'
-    ? [...regularImages, ...withPrefix('m')]
-    : regularImages;
+    ? galleryImages
+    : galleryImages.filter((fileName) => !path.parse(fileName).name.endsWith('m'));
 }
 
 export async function loadWeddingGallery(

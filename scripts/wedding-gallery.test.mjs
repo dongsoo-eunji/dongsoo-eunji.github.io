@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { copyFile, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, mkdtemp, readdir, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -8,7 +8,11 @@ import {
   selectGalleryFileNames
 } from '../src/lib/server/wedding-gallery.ts';
 
-const sourceImage = path.resolve('static/wedding/images/gallery/large/r01.webp');
+const sourceDirectory = path.resolve('static/wedding/images/gallery/large');
+const sourceImage = path.join(
+  sourceDirectory,
+  (await readdir(sourceDirectory)).find((name) => name.endsWith('.webp'))
+);
 
 async function fixture(t, largeNames, thumbnailNames = largeNames) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'wedding-gallery-load-'));
@@ -25,23 +29,23 @@ async function fixture(t, largeNames, thumbnailNames = largeNames) {
   return { largeDir, thumbDir };
 }
 
-test('selects regular images only for the standard gallery', () => {
+test('selects only shared images for the standard gallery', () => {
   assert.deepEqual(
     selectGalleryFileNames(
-      ['r10.webp', 'm02.webp', 'r2.webp', 'cover.webp', 'r01.txt', 'm1.webp'],
+      ['r10m.webp', 'r03.webp', 'r2.webp', 'cover.webp', 'r01.txt', 'm1.webp'],
       'standard'
     ),
-    ['r2.webp', 'r10.webp']
+    ['r2.webp', 'r03.webp']
   );
 });
 
-test('places naturally sorted m images after all r images in the extended gallery', () => {
+test('includes m-suffixed images in natural order for the extended gallery', () => {
   assert.deepEqual(
     selectGalleryFileNames(
-      ['m10.webp', 'r10.webp', 'm2.webp', 'r2.webp', 'r01.webp', 'm01.webp'],
+      ['r10m.webp', 'r10.webp', 'r2m.webp', 'r2.webp', 'r01.webp', 'm01.webp'],
       'extended'
     ),
-    ['r01.webp', 'r2.webp', 'r10.webp', 'm01.webp', 'm2.webp', 'm10.webp']
+    ['r01.webp', 'r2.webp', 'r2m.webp', 'r10.webp', 'r10m.webp']
   );
 });
 
@@ -59,10 +63,10 @@ test('loads the same images for both variants when no m images exist', async (t)
 });
 
 test('fails when a selected gallery image has no thumbnail', async (t) => {
-  const directories = await fixture(t, ['r01.webp', 'm01.webp'], ['r01.webp']);
+  const directories = await fixture(t, ['r01.webp', 'r02m.webp'], ['r01.webp']);
 
   await assert.rejects(
     loadWeddingGallery('extended', directories),
-    /Missing gallery thumbnail: thumb\/m01\.webp/
+    /Missing gallery thumbnail: thumb\/r02m\.webp/
   );
 });
