@@ -449,16 +449,6 @@
     </div>
   </section>
 
-  <section class="section guestbook" aria-labelledby="guestbook-title">
-    <p class="section-label">GUESTBOOK</p>
-    <h2 id="guestbook-title">축하의 마음을 남겨주세요</h2>
-    <p class="guestbook-intro">
-      두 사람의 새로운 시작을 축복하는<br />
-      따뜻한 메시지를 남겨주세요.
-    </p>
-    <Guestbook />
-  </section>
-
   <section class="section contact" aria-labelledby="contact-title">
     <p class="section-label">CONTACT</p>
     <h2 id="contact-title">마음 전하실 곳</h2>
@@ -534,6 +524,16 @@
         계좌번호 확인을 위해 JavaScript를 켜 주세요.
       </p>
     </noscript>
+  </section>
+
+  <section class="section guestbook" aria-labelledby="guestbook-title">
+    <p class="section-label">GUESTBOOK</p>
+    <h2 id="guestbook-title">축하의 마음을 남겨주세요</h2>
+    <p class="guestbook-intro">
+      두 사람의 새로운 시작을 축복하는<br />
+      따뜻한 메시지를 남겨주세요.
+    </p>
+    <Guestbook />
   </section>
 
   <figure class="closing-photo">
