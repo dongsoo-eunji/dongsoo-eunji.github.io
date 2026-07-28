@@ -328,10 +328,16 @@
     <p class="section-label">DATE</p>
     <h2 id="date-title">2026년 10월 4일</h2>
     <div class="event-times" aria-label="예식 및 식사 시간">
-      <p><span>예식</span><strong>오후 2시 30분</strong></p>
       <p>
-        <span>식사</span><strong>오후 1시 30분부터</strong>
-        <small>오후 4시 30분까지</small>
+        <span class="event-time-label">예식</span>
+        <span class="event-time-content"><strong>오후 2시 30분</strong></span>
+      </p>
+      <p>
+        <span class="event-time-label">식사</span>
+        <span class="event-time-content">
+          <strong>오후 1시 30분부터</strong>
+          <small>오후 4시 30분까지</small>
+        </span>
       </p>
     </div>
     <div class="calendar-grid" aria-label="2026년 10월 달력">

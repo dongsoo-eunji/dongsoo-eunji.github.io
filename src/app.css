@@ -46,10 +46,10 @@ h2 { margin: 0 0 26px; font-family: "Gowun Batang", serif; font-size: 1.55rem; f
 .family-relation { width: 3.4em; color: #9a8778; font-size: .8rem; text-align: center; white-space: nowrap; }
 .family-introductions strong { color: #55483f; font-family: "Gowun Batang", serif; font-size: 1.05rem; text-align: left; }
 .event-times { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; overflow: hidden; max-width: 350px; margin: -6px auto 28px; border: 1px solid #e3d8ce; border-radius: 12px; background: #e3d8ce; }
-.event-times p { margin: 0; padding: 14px 8px 15px; background: #f8f3ed; }
-.event-times span { display: inline-flex; align-items: center; justify-content: center; min-width: 3.4em; margin-bottom: 8px; border-radius: 999px; padding: 4px 9px; background: #9b7057; color: white; font-size: .78rem; font-weight: 700; letter-spacing: .08em; line-height: 1; }
+.event-times p { display: grid; grid-template-rows: auto 1fr; justify-items: center; margin: 0; padding: 14px 8px 15px; background: #f8f3ed; }
+.event-times .event-time-label { display: inline-flex; align-items: center; justify-content: center; min-width: 3.4em; margin-bottom: 8px; border-radius: 999px; padding: 4px 9px; background: #9b7057; color: white; font-size: .78rem; font-weight: 700; letter-spacing: .08em; line-height: 1; }
+.event-time-content { align-self: center; }
 .event-times strong { display: block; color: #4e4037; font-size: .96rem; font-weight: 700; }
-.event-times p:first-child strong { transform: translateY(5px); }
 .event-times small { display: block; margin-top: 6px; color: #8c7d72; font-size: .72rem; line-height: 1.4; }
 .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; width: 100%; max-width: 350px; margin: 0 auto; }
 .calendar-grid span { padding-bottom: 10px; font-size: .75rem; color: #9a8e84; }
