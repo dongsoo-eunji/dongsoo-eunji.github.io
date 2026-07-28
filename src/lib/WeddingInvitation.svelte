@@ -329,7 +329,10 @@
     <h2 id="date-title">2026년 10월 4일</h2>
     <div class="event-times" aria-label="예식 및 식사 시간">
       <p><span>예식</span><strong>오후 2시 30분</strong></p>
-      <p><span>식사</span><strong>오후 1시 30분부터</strong></p>
+      <p>
+        <span>식사</span><strong>오후 1시 30분부터</strong>
+        <small>예식 후에도 이용 가능</small>
+      </p>
     </div>
     <div class="calendar-grid" aria-label="2026년 10월 달력">
       <span class="sunday">일</span><span>월</span><span>화</span><span>수</span
