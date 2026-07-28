@@ -331,7 +331,7 @@
       <p><span>예식</span><strong>오후 2시 30분</strong></p>
       <p>
         <span>식사</span><strong>오후 1시 30분부터</strong>
-        <small>예식 후에도 이용 가능</small>
+        <small>오후 4시 30분까지 입장 가능</small>
       </p>
     </div>
     <div class="calendar-grid" aria-label="2026년 10월 달력">
