@@ -218,7 +218,7 @@
       <input type="checkbox" bind:checked={isPrivate} disabled={submitting} />
       <span>
         <strong>비공개로 남기기</strong>
-        <small>작성한 이름과 내용은 신랑·신부만 볼 수 있어요.</small>
+        <small>이름은 공개되며, 작성한 내용은 신랑·신부만 볼 수 있어요.</small>
       </span>
     </label>
 
@@ -256,7 +256,7 @@
       {#each entries as entry (entry.id)}
         <li class:private-entry={entry.isPrivate}>
           <div class="guestbook-entry-header">
-            <strong>{entry.isPrivate ? "비공개" : entry.name}</strong>
+            <strong>{entry.name ?? "이름 없음"}</strong>
             {#if entry.isPrivate}
               <span class="private-badge">비공개</span>
             {/if}
