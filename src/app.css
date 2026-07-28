@@ -78,6 +78,7 @@ address { margin-bottom: 24px; font-style: normal; line-height: 1.8; color: #625
 .transit-guide { margin-top: 28px; padding-top: 24px; border-top: 1px dashed #d9cec4; }
 .transit-guide h3 { margin: 0 0 12px; font-family: "Gowun Batang", serif; font-size: 1.15rem; }
 .transit-guide p { margin: 0; color: #625950; font-size: .84rem; line-height: 2; }
+.guestbook-intro { margin: -4px 0 0; color: #655c55; font-size: .9rem; line-height: 1.9; }
 .muted { color: #8b8077; font-size: .85rem; }
 .contact-message { margin: -2px 0 28px; color: #655c55; font-size: .9rem; line-height: 1.9; }
 .contact-message p { margin: 0; }

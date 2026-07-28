@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import AccountCard from "$lib/AccountCard.svelte";
   import EnvelopeReveal from "$lib/EnvelopeReveal.svelte";
+  import Guestbook from "$lib/Guestbook.svelte";
   import GalleryGrid from "$lib/gallery/GalleryGrid.svelte";
   import GalleryLightbox from "$lib/gallery/GalleryLightbox.svelte";
   import { shouldRefreshGallery } from "$lib/gallery/gallery-refresh";
@@ -446,6 +447,16 @@
         목원대사거리 우측 방향으로 약 500m 도보
       </p>
     </div>
+  </section>
+
+  <section class="section guestbook" aria-labelledby="guestbook-title">
+    <p class="section-label">GUESTBOOK</p>
+    <h2 id="guestbook-title">축하의 마음을 남겨주세요</h2>
+    <p class="guestbook-intro">
+      두 사람의 새로운 시작을 축복하는<br />
+      따뜻한 메시지를 남겨주세요.
+    </p>
+    <Guestbook />
   </section>
 
   <section class="section contact" aria-labelledby="contact-title">
