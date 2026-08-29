@@ -205,7 +205,7 @@
   </ol>
 
   <dl class="photo-event-schedule">
-    <div><dt>사진 접수</dt><dd>지금부터 10월 4일 오후 8시까지</dd></div>
+    <div><dt>사진 접수</dt><dd>10월 4일 오후 8시까지</dd></div>
     <div><dt>결과 발표</dt><dd>10월 4일 오후 10시</dd></div>
   </dl>
 
