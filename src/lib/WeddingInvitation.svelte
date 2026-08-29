@@ -6,6 +6,7 @@
   import Guestbook from "$lib/Guestbook.svelte";
   import GalleryGrid from "$lib/gallery/GalleryGrid.svelte";
   import GalleryLightbox from "$lib/gallery/GalleryLightbox.svelte";
+  import PhotoEvent from "$lib/photo-event/PhotoEvent.svelte";
   import { shouldRefreshGallery } from "$lib/gallery/gallery-refresh";
   import "$lib/gallery/gallery.css";
   import type { GalleryImage } from "$lib/gallery/gallery-data";
@@ -385,6 +386,8 @@
       onopen={(index) => openGallery(index)}
     />
   </section>
+
+  <PhotoEvent />
 
   <section class="section location" aria-labelledby="location-title">
     <p class="section-label">LOCATION</p>

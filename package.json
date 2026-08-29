@@ -15,6 +15,7 @@
     "images:test": "node --test scripts/convert-images.test.mjs",
     "gallery:prepare": "node scripts/prepare-gallery.mjs",
     "gallery:test": "node --test scripts/prepare-gallery.test.mjs scripts/wedding-gallery.test.mjs",
+    "photo-event:test": "node --test scripts/photo-event-state.test.mjs",
     "prebuild": "pnpm gallery:prepare",
     "build": "vite build",
     "preview": "vite preview",
