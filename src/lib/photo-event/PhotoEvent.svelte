@@ -213,7 +213,7 @@
     {#if phase === "open"}
       <div class="accepting-copy">
         <strong>사진 접수 중</strong>
-        <p>10월 4일 오후 8시까지 미리 참여하실 수 있습니다.</p>
+        <p>10월 4일 오후 8시까지 참여하실 수 있습니다.</p>
       </div>
       <form class="photo-upload-form" onsubmit={submitUpload}>
         <div class="participant-fields">
