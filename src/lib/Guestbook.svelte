@@ -11,7 +11,6 @@
     name?: string;
     content: string;
     isPrivate: boolean;
-    createdAt: string;
   };
 
   type GuestbookResponse = {
@@ -145,20 +144,6 @@
     }
   }
 
-  function formatCreatedAt(createdAt: string): string {
-    const date = new Date(createdAt);
-    if (Number.isNaN(date.getTime())) return "";
-
-    return new Intl.DateTimeFormat("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-      timeZone: "Asia/Seoul",
-    }).format(date);
-  }
 </script>
 
 <div class="guestbook-form-wrap">
@@ -262,9 +247,6 @@
             {/if}
           </div>
           <p>{entry.content}</p>
-          <time datetime={entry.createdAt}>
-            {formatCreatedAt(entry.createdAt)}
-          </time>
         </li>
       {/each}
     </ul>
@@ -497,12 +479,6 @@
     line-height: 1.75;
     overflow-wrap: anywhere;
     white-space: pre-wrap;
-  }
-
-  .guestbook-list time {
-    display: block;
-    color: #a09389;
-    font-size: 0.68rem;
   }
 
   .guestbook-state {

@@ -387,8 +387,6 @@
     />
   </section>
 
-  <PhotoEvent />
-
   <section class="section location" aria-labelledby="location-title">
     <p class="section-label">LOCATION</p>
     <h2 id="location-title">오시는 길</h2>
@@ -538,6 +536,8 @@
     </p>
     <Guestbook />
   </section>
+
+  <PhotoEvent />
 
   <figure class="closing-photo">
     <div class="closing-postcard">

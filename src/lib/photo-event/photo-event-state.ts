@@ -1,14 +1,9 @@
 export const PHOTO_EVENT_TIMES = {
-  uploadStart: Date.parse("2026-10-04T14:30:00+09:00"),
   uploadCutoff: Date.parse("2026-10-04T20:00:00+09:00"),
   publish: Date.parse("2026-10-04T22:00:00+09:00"),
 } as const;
 
-export type PhotoEventPhase =
-  | "before"
-  | "open"
-  | "selecting"
-  | "published";
+export type PhotoEventPhase = "open" | "selecting" | "published";
 
 export type PhotoUploadState = "idle" | "uploading" | "success" | "error";
 
@@ -21,7 +16,6 @@ const acceptedPhotoMimeTypes = new Set([
 ]);
 
 export function getPhotoEventPhase(now: number): PhotoEventPhase {
-  if (now < PHOTO_EVENT_TIMES.uploadStart) return "before";
   if (now < PHOTO_EVENT_TIMES.uploadCutoff) return "open";
   if (now < PHOTO_EVENT_TIMES.publish) return "selecting";
   return "published";
