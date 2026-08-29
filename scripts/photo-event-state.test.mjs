@@ -48,3 +48,8 @@ test("accepts HEIC from browsers that omit a useful MIME type", () => {
   assert.equal(isAcceptedPhotoFile({ name: "notes.txt", type: "" }), false);
   assert.equal(isAcceptedPhotoFile({ name: "photo.jpg", type: "text/plain" }), false);
 });
+
+test("accepts AVIF by MIME type or file extension", () => {
+  assert.equal(isAcceptedPhotoFile({ name: "photo.avif", type: "image/avif" }), true);
+  assert.equal(isAcceptedPhotoFile({ name: "PHOTO.AVIF", type: "" }), true);
+});

@@ -11,6 +11,7 @@ const acceptedPhotoMimeTypes = new Set([
   "image/jpeg",
   "image/png",
   "image/webp",
+  "image/avif",
   "image/heic",
   "image/heif",
 ]);
@@ -33,7 +34,7 @@ export function isAcceptedPhotoFile(file: { name: string; type: string }): boole
   const mimeType = file.type.toLowerCase();
   if (acceptedPhotoMimeTypes.has(mimeType)) return true;
   if (mimeType && mimeType !== "application/octet-stream") return false;
-  return /\.(?:jpe?g|png|webp|heic|heif)$/i.test(file.name);
+  return /\.(?:jpe?g|png|webp|avif|heic|heif)$/i.test(file.name);
 }
 
 export function photoUploadFailureMessage(

@@ -77,7 +77,7 @@
     if (!file) return;
     if (!isAcceptedPhotoFile(file)) {
       uploadState = "error";
-      uploadMessage = "JPEG, PNG, WebP 또는 HEIC 사진을 선택해 주세요.";
+      uploadMessage = "JPEG, PNG, WebP, AVIF 또는 HEIC 사진을 선택해 주세요.";
       input.value = "";
       return;
     }
@@ -228,14 +228,14 @@
         </div>
         <label class="file-picker" class:has-preview={previewUrl}>
           <span>{selectedFile ? "다른 사진 선택" : "사진 선택"}</span>
-          <input bind:this={fileInput} type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" onchange={selectFile} disabled={uploadState === "uploading"} />
+          <input bind:this={fileInput} type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif,.avif,.heic,.heif" onchange={selectFile} disabled={uploadState === "uploading"} />
         </label>
         {#if previewUrl}
           <div class="upload-preview">
             <img src={previewUrl} alt="선택한 사진 미리보기" />
           </div>
         {/if}
-        <p class="upload-help">JPEG, PNG, WebP, HEIC · 최대 15MB</p>
+        <p class="upload-help">JPEG, PNG, WebP, AVIF, HEIC · 최대 15MB</p>
         <p class="privacy-copy">이름과 연락처, 미선정 사진은 베스트 사진 선정과 선물 전달에만 사용되며 이 페이지에 공개되지 않습니다.</p>
         {#if uploadState === "success"}
           <button class="upload-button secondary" type="button" onclick={resetUpload}>다른 사진 올리기</button>
