@@ -5,6 +5,7 @@ import {
   getPhotoEventPhase,
   isAcceptedPhotoFile,
   photoUploadFailureMessage,
+  validatePhotoSelection,
 } from "../src/lib/photo-event/photo-event-state.ts";
 
 const cases = [
@@ -52,4 +53,12 @@ test("accepts HEIC from browsers that omit a useful MIME type", () => {
 test("accepts AVIF by MIME type or file extension", () => {
   assert.equal(isAcceptedPhotoFile({ name: "photo.avif", type: "image/avif" }), true);
   assert.equal(isAcceptedPhotoFile({ name: "PHOTO.AVIF", type: "" }), true);
+});
+
+test("validates a multi-photo selection", () => {
+  const jpeg = (size = 1024) => ({ name: "photo.jpg", type: "image/jpeg", size });
+  assert.equal(validatePhotoSelection([jpeg(), jpeg(), jpeg(), jpeg(), jpeg()]), null);
+  assert.equal(validatePhotoSelection([jpeg(), jpeg(), jpeg(), jpeg(), jpeg(), jpeg()]), "too-many");
+  assert.equal(validatePhotoSelection([{ name: "notes.txt", type: "text/plain", size: 10 }]), "unsupported");
+  assert.equal(validatePhotoSelection([jpeg(15 * 1024 * 1024 + 1)]), "file-too-large");
 });

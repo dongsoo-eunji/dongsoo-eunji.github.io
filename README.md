@@ -7,7 +7,8 @@
 절대시각으로 판정해 실행 환경의 timezone에 영향을 받지 않습니다.
 
 정적 프런트엔드는 `https://api.hided.net/wedding/photo-event` API를 사용합니다.
-업로드 형식은 JPEG, PNG, WebP, AVIF, HEIC/HEIF이며 최대 크기는 15MB입니다.
+업로드 형식은 JPEG, PNG, WebP, AVIF, HEIC/HEIF이며 한 번에 최대 5장,
+사진당 최대 크기는 15MB입니다.
 사진은 이름·연락처와 함께 비공개 후보로 저장되고, 공개 결과에는 관리자가 선정한
 세 장만 포함됩니다. 운영 당일에는
 `https://api.hided.net/wedding/admin/`에서 기존 관리키로 로그인한 뒤 후보를 원하는

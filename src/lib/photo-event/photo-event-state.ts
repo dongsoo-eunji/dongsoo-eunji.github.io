@@ -7,6 +7,12 @@ export type PhotoEventPhase = "open" | "selecting" | "published";
 
 export type PhotoUploadState = "idle" | "uploading" | "success" | "error";
 
+export const MAXIMUM_PHOTOS_PER_UPLOAD = 5;
+export const MAXIMUM_PHOTO_BYTES = 15 * 1024 * 1024;
+export const MAXIMUM_UPLOAD_BYTES = MAXIMUM_PHOTOS_PER_UPLOAD * MAXIMUM_PHOTO_BYTES;
+
+export type PhotoSelectionError = "too-many" | "unsupported" | "file-too-large" | "total-too-large";
+
 const acceptedPhotoMimeTypes = new Set([
   "image/jpeg",
   "image/png",
@@ -35,6 +41,19 @@ export function isAcceptedPhotoFile(file: { name: string; type: string }): boole
   if (acceptedPhotoMimeTypes.has(mimeType)) return true;
   if (mimeType && mimeType !== "application/octet-stream") return false;
   return /\.(?:jpe?g|png|webp|avif|heic|heif)$/i.test(file.name);
+}
+
+export function validatePhotoSelection(
+  files: ArrayLike<{ name: string; type: string; size: number }>,
+): PhotoSelectionError | null {
+  const selected = Array.from(files);
+  if (selected.length > MAXIMUM_PHOTOS_PER_UPLOAD) return "too-many";
+  if (selected.some((file) => !isAcceptedPhotoFile(file))) return "unsupported";
+  if (selected.some((file) => file.size > MAXIMUM_PHOTO_BYTES)) return "file-too-large";
+  if (selected.reduce((total, file) => total + file.size, 0) > MAXIMUM_UPLOAD_BYTES) {
+    return "total-too-large";
+  }
+  return null;
 }
 
 export function photoUploadFailureMessage(

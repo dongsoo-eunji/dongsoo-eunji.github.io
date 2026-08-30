@@ -5,14 +5,13 @@
   import {
     canSubmitPhotoUpload,
     getPhotoEventPhase,
-    isAcceptedPhotoFile,
     photoUploadFailureMessage,
+    validatePhotoSelection,
     type PhotoEventPhase,
     type PhotoUploadState,
   } from "./photo-event-state";
 
   const apiRoot = "https://api.hided.net/wedding/photo-event";
-  const maximumFileBytes = 15 * 1024 * 1024;
   type PublicPhoto = {
     id: string;
     rank: number;
@@ -24,8 +23,8 @@
   };
 
   let phase: PhotoEventPhase = $state(getPhotoEventPhase(Date.now()));
-  let selectedFile: File | null = $state(null);
-  let previewUrl = $state("");
+  let selectedFiles: File[] = $state([]);
+  let previewUrls: string[] = $state([]);
   let participantName = $state("");
   let participantContact = $state("");
   let uploadState: PhotoUploadState = $state("idle");
@@ -60,41 +59,56 @@
     return () => {
       window.clearInterval(timer);
       document.removeEventListener("visibilitychange", handleVisibility);
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
+      previewUrls.forEach((url) => URL.revokeObjectURL(url));
     };
   });
 
-  function selectFile(event: Event): void {
+  function clearSelectedFiles(): void {
+    previewUrls.forEach((url) => URL.revokeObjectURL(url));
+    previewUrls = [];
+    selectedFiles = [];
+  }
+
+  function selectFiles(event: Event): void {
     const input = event.currentTarget as HTMLInputElement;
-    const file = input.files?.[0] ?? null;
+    const files = Array.from(input.files ?? []);
     uploadState = "idle";
     uploadMessage = "";
     uploadProgress = 0;
-    if (previewUrl) URL.revokeObjectURL(previewUrl);
-    previewUrl = "";
-    selectedFile = null;
+    clearSelectedFiles();
 
-    if (!file) return;
-    if (!isAcceptedPhotoFile(file)) {
+    if (files.length === 0) return;
+    const selectionError = validatePhotoSelection(files);
+    if (selectionError === "too-many") {
+      uploadState = "error";
+      uploadMessage = "사진이 많습니다. 나누어 선택해 주세요.";
+      input.value = "";
+      return;
+    }
+    if (selectionError === "unsupported") {
       uploadState = "error";
       uploadMessage = "JPEG, PNG, WebP, AVIF 또는 HEIC 사진을 선택해 주세요.";
       input.value = "";
       return;
     }
-    if (file.size > maximumFileBytes) {
+    if (selectionError === "file-too-large") {
       uploadState = "error";
-      uploadMessage = "사진은 15MB 이하만 올릴 수 있습니다.";
+      uploadMessage = "각 사진은 15MB 이하만 올릴 수 있습니다.";
       input.value = "";
       return;
     }
-    selectedFile = file;
-    previewUrl = URL.createObjectURL(file);
+    if (selectionError === "total-too-large") {
+      uploadState = "error";
+      uploadMessage = "선택한 사진의 전체 용량이 큽니다. 나누어 올려주세요.";
+      input.value = "";
+      return;
+    }
+    selectedFiles = files;
+    previewUrls = files.map((file) => URL.createObjectURL(file));
   }
 
   function resetUpload(): void {
-    if (previewUrl) URL.revokeObjectURL(previewUrl);
-    previewUrl = "";
-    selectedFile = null;
+    clearSelectedFiles();
     uploadState = "idle";
     uploadMessage = "";
     uploadProgress = 0;
@@ -103,7 +117,7 @@
 
   function submitUpload(event: SubmitEvent): void {
     event.preventDefault();
-    if (!canSubmitPhotoUpload(phase, selectedFile !== null, uploadState) || !selectedFile) return;
+    if (!canSubmitPhotoUpload(phase, selectedFiles.length > 0, uploadState)) return;
 
     uploadState = "uploading";
     uploadProgress = 0;
@@ -111,11 +125,11 @@
     const formData = new FormData();
     formData.append("participantName", participantName);
     formData.append("participantContact", participantContact);
-    formData.append("photo", selectedFile, selectedFile.name);
+    for (const file of selectedFiles) formData.append("photo", file, file.name);
 
     const request = new XMLHttpRequest();
     request.open("POST", `${apiRoot}/uploads`);
-    request.timeout = 120_000;
+    request.timeout = 300_000;
     request.upload.addEventListener("progress", (progressEvent) => {
       if (!progressEvent.lengthComputable) {
         uploadMessage = "사진을 올리고 있습니다.";
@@ -128,7 +142,7 @@
       if (request.status >= 200 && request.status < 300) {
         uploadState = "success";
         uploadProgress = 100;
-        uploadMessage = "사진이 잘 접수되었습니다. 참여해 주셔서 감사합니다.";
+        uploadMessage = `${selectedFiles.length}장의 사진이 잘 접수되었습니다. 참여해 주셔서 감사합니다.`;
         return;
       }
       let serverMessage = "";
@@ -226,13 +240,17 @@
             <input bind:value={participantContact} name="participantContact" maxlength="100" inputmode="tel" autocomplete="tel" placeholder="기프티콘을 받으실 연락처" required disabled={uploadState === "uploading"} />
           </label>
         </div>
-        <label class="file-picker" class:has-preview={previewUrl}>
-          <span>{selectedFile ? "다른 사진 선택" : "사진 선택"}</span>
-          <input bind:this={fileInput} type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif,.avif,.heic,.heif" onchange={selectFile} disabled={uploadState === "uploading"} />
+        <label class="file-picker" class:has-preview={previewUrls.length > 0}>
+          <span>{selectedFiles.length > 0 ? "사진 다시 선택" : "사진 선택"}</span>
+          <input bind:this={fileInput} type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif,.avif,.heic,.heif" multiple onchange={selectFiles} disabled={uploadState === "uploading"} />
         </label>
-        {#if previewUrl}
-          <div class="upload-preview">
-            <img src={previewUrl} alt="선택한 사진 미리보기" />
+        {#if previewUrls.length > 0}
+          <div class="upload-previews" aria-label="선택한 사진 미리보기">
+            {#each previewUrls as previewUrl, index}
+              <div class="upload-preview">
+                <img src={previewUrl} alt={`선택한 사진 ${index + 1} 미리보기`} />
+              </div>
+            {/each}
           </div>
         {/if}
         <p class="upload-help">JPEG, PNG, WebP, AVIF, HEIC · 최대 15MB</p>
@@ -240,8 +258,8 @@
         {#if uploadState === "success"}
           <button class="upload-button secondary" type="button" onclick={resetUpload}>다른 사진 올리기</button>
         {:else}
-          <button class="upload-button" type="submit" disabled={!canSubmitPhotoUpload(phase, selectedFile !== null, uploadState)}>
-            {uploadState === "uploading" ? "업로드 중" : uploadState === "error" ? "다시 업로드" : "사진 올리기"}
+          <button class="upload-button" type="submit" disabled={!canSubmitPhotoUpload(phase, selectedFiles.length > 0, uploadState)}>
+            {uploadState === "uploading" ? "업로드 중" : uploadState === "error" ? "다시 업로드" : selectedFiles.length > 1 ? `사진 ${selectedFiles.length}장 올리기` : "사진 올리기"}
           </button>
         {/if}
         {#if uploadState === "uploading"}
@@ -312,7 +330,8 @@
   .participant-fields input:focus-visible, .file-picker:focus-within, button:focus-visible { outline: 2px solid #806854; outline-offset: 3px; }
   .file-picker { display: grid; min-height: 48px; margin-top: 14px; place-items: center; border: 1px dashed #bca38f; border-radius: 10px; color: #6d5646; cursor: pointer; }
   .file-picker input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
-  .upload-preview { display: grid; overflow: hidden; width: 100%; margin-top: 12px; place-items: center; aspect-ratio: 4 / 3; border-radius: 10px; background: #eee8e1; }
+  .upload-previews { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+  .upload-preview { display: grid; overflow: hidden; width: 100%; place-items: center; aspect-ratio: 1 / 1; border-radius: 10px; background: #eee8e1; }
   .upload-preview img { width: 100%; height: 100%; object-fit: contain; }
   .upload-help { margin: 9px 0 0; color: #96877c; font-size: .73rem; }
   .privacy-copy { margin: 15px 0 0; color: #85776d; font-size: .73rem; line-height: 1.65; text-align: left; }
