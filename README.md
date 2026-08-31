@@ -20,3 +20,10 @@
 운영 기록을 위해 API 서버 DB와 인증된 관리자 화면에만 유지됩니다.
 
 시간 경계 테스트는 `pnpm photo-event:test`로 실행합니다.
+
+## 청첩장 잠금
+
+`/wedding/`과 `/wedding/m/`은 2026-10-10 23:59 KST부터 비밀번호 입력 화면을
+표시합니다. 현재 `.env`의 `see_passwd`에서 한 번 생성한 random salt와
+PBKDF2-SHA256 결과만 코드에 포함하며 원문 비밀번호나 Actions secret은 사용하지
+않습니다. 경계 및 해시 테스트는 `pnpm access:test`로 실행합니다.
