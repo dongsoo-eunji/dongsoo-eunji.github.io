@@ -57,7 +57,7 @@
 <section id="photo-event" class="section best-shots" aria-labelledby="best-shots-title">
   <p class="section-label">BEST SHOTS</p>
   <h2 id="best-shots-title">베스트 샷</h2>
-  <p class="best-shots-message">응모해 주셔서 감사합니다.<br />선정되신 다섯 분께는 10월 5일 연락드리겠습니다. 감사합니다.</p>
+  <p class="best-shots-message">응모해 주셔서 감사합니다.<br />선정되신 다섯 분께는 10월 5일 연락드리겠습니다.<br />감사합니다.</p>
 
   {#if loading && !loaded}
     <p class="gallery-status" aria-live="polite">베스트 사진을 불러오고 있습니다.</p>
