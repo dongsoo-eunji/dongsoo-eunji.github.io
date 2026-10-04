@@ -4,11 +4,13 @@
   type Props = {
     images: GalleryImage[];
     onopen: (index: number, trigger: HTMLElement) => void;
+    gridId?: string;
+    collapsible?: boolean;
   };
 
-  let { images, onopen }: Props = $props();
+  let { images, onopen, gridId = 'wedding-gallery-grid', collapsible = true }: Props = $props();
   let expanded = $state(false);
-  const visibleImages = $derived(expanded ? images : images.slice(0, 6));
+  const visibleImages = $derived(!collapsible || expanded ? images : images.slice(0, 6));
 
   function openImage(event: MouseEvent, index: number): void {
     event.preventDefault();
@@ -20,7 +22,7 @@
   }
 </script>
 
-<div id="wedding-gallery-grid" class="wedding-gallery-grid">
+<div id={gridId} class="wedding-gallery-grid">
   {#each visibleImages as image, index (image.id)}
     <a href={image.src} onclick={(event) => openImage(event, index)}>
       <span class="gallery-photo">
@@ -36,11 +38,11 @@
   {/each}
 </div>
 
-{#if images.length > 6}
+{#if collapsible && images.length > 6}
   <button
     class="gallery-expand-button"
     type="button"
-    aria-controls="wedding-gallery-grid"
+    aria-controls={gridId}
     aria-expanded={expanded}
     onclick={() => (expanded = !expanded)}
   >

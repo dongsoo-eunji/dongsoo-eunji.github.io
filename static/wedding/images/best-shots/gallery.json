@@ -1,0 +1,44 @@
+{
+  "galleryImages": [
+    {
+      "id": "best-ba1568e0be435302de8840d20b732486f9fafd86fc500e1e5632277566f088af",
+      "src": "/wedding/images/best-shots/large/best-ba1568e0be435302de8840d20b732486f9fafd86fc500e1e5632277566f088af.webp",
+      "thumbnailSrc": "/wedding/images/best-shots/thumb/best-ba1568e0be435302de8840d20b732486f9fafd86fc500e1e5632277566f088af.webp",
+      "width": 1280,
+      "height": 1920,
+      "alt": "베스트 사진 01"
+    },
+    {
+      "id": "best-7a7ba1a0459bbfdac6510e11e4de230c2c737d787a471334fbc12de9a3db6314",
+      "src": "/wedding/images/best-shots/large/best-7a7ba1a0459bbfdac6510e11e4de230c2c737d787a471334fbc12de9a3db6314.webp",
+      "thumbnailSrc": "/wedding/images/best-shots/thumb/best-7a7ba1a0459bbfdac6510e11e4de230c2c737d787a471334fbc12de9a3db6314.webp",
+      "width": 1440,
+      "height": 1920,
+      "alt": "베스트 사진 02"
+    },
+    {
+      "id": "best-5d2388933c8fb2344e1f330ab776e4f2dd566bddf74cd312a3ba301496c3606a",
+      "src": "/wedding/images/best-shots/large/best-5d2388933c8fb2344e1f330ab776e4f2dd566bddf74cd312a3ba301496c3606a.webp",
+      "thumbnailSrc": "/wedding/images/best-shots/thumb/best-5d2388933c8fb2344e1f330ab776e4f2dd566bddf74cd312a3ba301496c3606a.webp",
+      "width": 1440,
+      "height": 1920,
+      "alt": "베스트 사진 03"
+    },
+    {
+      "id": "best-631f3419ccedbe23facbee9a5bc61334833b4557c8c879bf1cd58e37827b0569",
+      "src": "/wedding/images/best-shots/large/best-631f3419ccedbe23facbee9a5bc61334833b4557c8c879bf1cd58e37827b0569.webp",
+      "thumbnailSrc": "/wedding/images/best-shots/thumb/best-631f3419ccedbe23facbee9a5bc61334833b4557c8c879bf1cd58e37827b0569.webp",
+      "width": 1440,
+      "height": 1920,
+      "alt": "베스트 사진 04"
+    },
+    {
+      "id": "best-c05fc1dc5c53544c71ee296a0847a5e55459982b3b01a1964983c8e4d79ac090",
+      "src": "/wedding/images/best-shots/large/best-c05fc1dc5c53544c71ee296a0847a5e55459982b3b01a1964983c8e4d79ac090.webp",
+      "thumbnailSrc": "/wedding/images/best-shots/thumb/best-c05fc1dc5c53544c71ee296a0847a5e55459982b3b01a1964983c8e4d79ac090.webp",
+      "width": 1920,
+      "height": 1081,
+      "alt": "베스트 사진 05"
+    }
+  ]
+}

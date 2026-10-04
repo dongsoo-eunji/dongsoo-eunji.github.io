@@ -53,8 +53,14 @@ export async function convertImages({
   inputDir = DEFAULT_INPUT_DIR,
   largeDir = path.join(inputDir, 'large'),
   thumbDir = path.join(inputDir, 'thumb'),
+  maxDimension = 1800,
+  allowEmpty = false,
+  outputStem = (image) => image.stem,
   ffmpegCommand = process.env.FFMPEG_PATH || 'ffmpeg'
 } = {}) {
+  if (!Number.isInteger(maxDimension) || maxDimension <= 0) {
+    throw new Error('maxDimension must be a positive integer.');
+  }
   const entries = await readdir(inputDir, { withFileTypes: true });
   const images = entries
     .filter((entry) => entry.isFile() && IMAGE_EXTENSIONS.has(path.extname(entry.name).toLowerCase()))
@@ -62,7 +68,9 @@ export async function convertImages({
     .sort((left, right) => left.name.localeCompare(right.name));
 
   if (images.length === 0) {
-    throw new Error(`No images found in ${inputDir}`);
+    if (!allowEmpty) throw new Error(`No images found in ${inputDir}`);
+    await Promise.all([mkdir(largeDir, { recursive: true }), mkdir(thumbDir, { recursive: true })]);
+    return [];
   }
 
   const duplicateStem = images.find((image, index) =>
@@ -83,16 +91,23 @@ export async function convertImages({
   await Promise.all([mkdir(largeDir, { recursive: true }), mkdir(thumbDir, { recursive: true })]);
 
   const converted = [];
+  const outputStems = new Set();
   for (const image of images) {
     const inputPath = path.join(inputDir, image.name);
-    const largePath = path.join(largeDir, `${image.stem}.webp`);
-    const thumbPath = path.join(thumbDir, `${image.stem}.webp`);
+    const stem = await outputStem(image, inputPath);
+    if (typeof stem !== 'string' || !/^[^/\\]+$/.test(stem) || stem === '.' || stem === '..') {
+      throw new Error(`Invalid output name for ${image.name}.`);
+    }
+    if (outputStems.has(stem.toLowerCase())) continue;
+    outputStems.add(stem.toLowerCase());
+    const largePath = path.join(largeDir, `${stem}.webp`);
+    const thumbPath = path.join(thumbDir, `${stem}.webp`);
 
     await convert(
       ffmpegCommand,
       inputPath,
       largePath,
-      "scale='if(gt(iw,ih),min(1800,iw),-2)':'if(gt(iw,ih),-2,min(1800,ih))'"
+      `scale=w='min(${maxDimension},iw)':h='min(${maxDimension},ih)':force_original_aspect_ratio=decrease`
     );
     await convert(
       ffmpegCommand,
