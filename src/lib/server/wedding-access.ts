@@ -1,9 +1,9 @@
 import { WEDDING_LOCK_AT } from "../wedding-access";
 
-// Generated once from .env see_passwd. Only the random salt and PBKDF2 result
+// Generated once from the configured wedding anniversary password. Only the random salt and PBKDF2 result
 // are shipped with the static site; the original password is not committed.
-const passwordSalt = "4019b7cf938739ce3af82880aae56d1d";
-const passwordHash = "37e408fbc41773ea2496020ce82cde7fe692fb1b89a957ff1872f9afb9ea0ff3";
+const passwordSalt = "764cab8fc113dc0a432a6ec0f1777b7e";
+const passwordHash = "95c88b97d9995f71d7e35d5bc95887d58b60cd1895354983944d32d56e871c89";
 const passwordIterations = 210_000;
 
 export function createWeddingAccessData(): {

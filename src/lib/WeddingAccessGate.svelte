@@ -78,13 +78,15 @@
     <section aria-labelledby="access-title">
       <p class="eyebrow">PRIVATE INVITATION</p>
       <h1 id="access-title">초대장이 잠겨 있습니다</h1>
-      <p class="description">비밀번호를 입력하시면 초대장을 다시 보실 수 있습니다.</p>
+      <p class="description">부부의 결혼기념일을 입력해 주세요.<br />연월일 8자리(YYYYMMDD)로 입력하시면 초대장을 다시 보실 수 있습니다.</p>
       <form onsubmit={unlock}>
         <label for="wedding-access-password">비밀번호</label>
         <input
           id="wedding-access-password"
           bind:value={password}
           type="password"
+          inputmode="numeric"
+          placeholder="YYYYMMDD"
           autocomplete="current-password"
           required
           disabled={checking}
