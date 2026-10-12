@@ -27,7 +27,7 @@
   const musicSource = `${base}/wedding/music/alex-morgan-calm-piano-541028.m4a`;
 
   const weddingDate = new Date("2026-10-04T14:30:00+09:00");
-  let remainingDays: number | null = $state(null);
+  let elapsedDays: number | null = $state(null);
   let copyStatus = $state("");
   let groomAccountsOpen = $state(false);
   let brideAccountsOpen = $state(false);
@@ -44,9 +44,11 @@
 
   onMount(() => {
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
-    remainingDays = Math.max(
+    const koreaOffset = 9 * 60 * 60 * 1000;
+    elapsedDays = Math.max(
       0,
-      Math.ceil((weddingDate.getTime() - Date.now()) / millisecondsPerDay),
+      Math.floor((Date.now() + koreaOffset) / millisecondsPerDay) -
+        Math.floor((weddingDate.getTime() + koreaOffset) / millisecondsPerDay),
     );
 
     const handleFirstInteraction = (event: Event): void => {
@@ -367,12 +369,12 @@
         class="saturday">31</b
       >
     </div>
-    {#if remainingDays !== null}
+    {#if elapsedDays !== null}
       <p class="countdown">
-        결혼식까지 <strong>{remainingDays}</strong>일 남았습니다.
+        결혼식으로부터 <strong>{elapsedDays}</strong>일 지났습니다.
       </p>
     {:else}
-      <p class="countdown no-js-copy">2026년 10월 4일에 만나요.</p>
+      <p class="countdown no-js-copy">2026년 10월 4일, 우리의 결혼식</p>
     {/if}
   </section>
 
